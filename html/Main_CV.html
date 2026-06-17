@@ -1,0 +1,911 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO e metadados -->
+    <meta
+      name="description"
+      content="Currículo profissional de Willian Gabriel de Oliveira Castro — Desenvolvedor Front-End, estudante de Sistemas de Informação."
+    />
+    <meta name="author" content="Willian Gabriel de Oliveira Castro" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph (compartilhamento em redes sociais) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Willian Gabriel — Desenvolvedor Front-End" />
+    <meta
+      property="og:description"
+      content="Currículo online com painel de acessibilidade completo, timeline de trajetória e portfólio de habilidades."
+    />
+
+    <title>Currículo | Willian Gabriel</title>
+
+    <!-- Ícone do site -->
+    <link rel="icon" href="assets/img/JavaScript_black-icon.jpg" type="image/jpeg" />
+
+    <!-- ============================================================
+       FONTES EXTERNAS
+       - DM Serif Display: fonte serifada elegante para títulos (H1, H2...)
+       - DM Sans: fonte sans-serif moderna para corpo de texto
+       - OpenDyslexic: carregada apenas quando o usuário ativar via painel
+       ============================================================ -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/opendyslexic@1.0.3/opendyslexic.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Folha de estilo principal -->
+    <link rel="stylesheet" href="../css/Main_CV.css" />
+
+    <!-- ============================================================
+       GOOGLE ANALYTICS — GA4
+       Para ativar: substitua "G-XXXXXXXXXX" pelo seu Measurement ID.
+       Obtido em: analytics.google.com → Admin → Data Streams → Web.
+
+       Boas práticas LGPD:
+       - Ative anonimização de IP no painel do GA4 (ativado por padrão no GA4)
+       - Adicione aviso de cookies caso colete dados de terceiros
+       - Considere usar consentimento condicional (Consent Mode v2)
+       ============================================================ -->
+    <!--
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX', { anonymize_ip: true });
+    </script>
+    -->
+  </head>
+
+  <body>
+
+    <!-- ============================================================
+       FILTROS SVG PARA DALTONISMO
+       Posicionados fora do fluxo visual (width/height: 0).
+       Cada <filter id="filtro-[tipo]"> é uma matriz de cores (feColorMatrix)
+       calibrada para simular/compensar os principais tipos de daltonismo.
+       São aplicados via JS como: element.style.filter = "url(#filtro-tipo)"
+       ============================================================ -->
+    <svg
+      id="filtros-daltonismo"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      focusable="false"
+      style="position: absolute; width: 0; height: 0; overflow: hidden"
+    >
+      <defs>
+        <!-- DEUTERANOPIA — ausência total dos cones verdes -->
+        <filter id="filtro-deuteranopia">
+          <feColorMatrix type="matrix" values="
+            0.625 0.375 0     0 0
+            0.7   0.3   0     0 0
+            0     0.3   0.7   0 0
+            0     0     0     1 0" />
+        </filter>
+
+        <!-- DEUTERANOMALIA — cones verdes com sensibilidade reduzida -->
+        <filter id="filtro-deuteranomalia">
+          <feColorMatrix type="matrix" values="
+            0.8   0.2   0     0 0
+            0.258 0.742 0     0 0
+            0     0.142 0.858 0 0
+            0     0     0     1 0" />
+        </filter>
+
+        <!-- PROTANOPIA — ausência total dos cones vermelhos -->
+        <filter id="filtro-protanopia">
+          <feColorMatrix type="matrix" values="
+            0.567 0.433 0     0 0
+            0.558 0.442 0     0 0
+            0     0.242 0.758 0 0
+            0     0     0     1 0" />
+        </filter>
+
+        <!-- PROTANOMALIA — cones vermelhos com sensibilidade reduzida -->
+        <filter id="filtro-protanomalia">
+          <feColorMatrix type="matrix" values="
+            0.817 0.183 0     0 0
+            0.333 0.667 0     0 0
+            0     0.125 0.875 0 0
+            0     0     0     1 0" />
+        </filter>
+
+        <!-- TRITANOPIA — ausência total dos cones azuis -->
+        <filter id="filtro-tritanopia">
+          <feColorMatrix type="matrix" values="
+            0.95  0.05  0     0 0
+            0     0.433 0.567 0 0
+            0     0.475 0.525 0 0
+            0     0     0     1 0" />
+        </filter>
+
+        <!-- TRITANOMALIA — cones azuis com sensibilidade reduzida -->
+        <filter id="filtro-tritanomalia">
+          <feColorMatrix type="matrix" values="
+            1     0     0     0 0
+            0     0.733 0.267 0 0
+            0     0.183 0.817 0 0
+            0     0     0     1 0" />
+        </filter>
+
+        <!-- ACROMATOPSIA — visão completamente em escala de cinza -->
+        <filter id="filtro-acromatopsia">
+          <feColorMatrix type="saturate" values="0" />
+        </filter>
+      </defs>
+    </svg>
+
+    <!-- ============================================================
+       GUIA DE LEITURA
+       Elemento horizontal que segue o cursor do mouse quando ativado.
+       Controlado exclusivamente via JavaScript (Scripts.js).
+       display:none inicial para não interferir no layout.
+       ============================================================ -->
+    <div id="guia-leitura" class="guia-leitura" aria-hidden="true"></div>
+
+    <!-- ============================================================
+       ESTRUTURA DE LAYOUT PRINCIPAL
+       Usamos CSS Grid no body/wrapper com três colunas:
+         [menu-lateral] [conteudo-central] [painel-direito]
+       Isso evita o bug do v6 onde o painel de acessibilidade
+       empurrava o container com margin-left via JS, quebrando
+       o "margin: 0 auto". Agora o layout usa transform para
+       a animação do main, sem afetar a centralização do grid.
+       ============================================================ -->
+    <div class="layout-wrapper">
+
+      <!-- ==================================================
+         ASIDE ESQUERDO — Menu de Navegação + Painel de Acessibilidade
+         ================================================== -->
+      <aside class="aside-esquerdo" id="aside-esquerdo" aria-label="Navegação e acessibilidade">
+
+        <!-- ============================================================
+       BOTÃO FLUTUANTE DE USABILIDADE ⚙
+       Posicionado acima do botão de acessibilidade.
+       z-index alto para ficar sempre sobre o conteúdo.
+       ============================================================ -->
+        <header class="header-aside">
+    <button
+      class="btn-usabilidade"
+      id="btn-usabilidade"
+      onclick="togglePainelUso()"
+      aria-label="Abrir menu de usabilidade"
+      aria-controls="painel-usabilidade"
+      aria-expanded="false"
+    >
+    <span class="hamburger-icon">☰</span>
+  </button>
+
+  </header>
+    
+        <!-- MENU DE NAVEGAÇÃO POR SEÇÕES
+             Âncoras internas sem modificar o URL (via JS scrollIntoView).
+             data-scroll="[id]" é lido pelo JS de navegação suave. -->
+        <nav class="menu-nav" id="menu-nav" aria-label="Navegação por seções">
+          <ul role="list">
+            <li><button type="button" class="btn-nav" data-scroll="inicio">Início</button></li>
+            <li><button type="button" class="btn-nav" data-scroll="objetivo">Objetivo</button></li>
+            <li><button type="button" class="btn-nav" data-scroll="experiencia">Experiência</button></li>
+            <li><button type="button" class="btn-nav" data-scroll="formacao">Formação</button></li>
+            <li><button type="button" class="btn-nav" data-scroll="cursos">Cursos</button></li>
+            <li><button type="button" class="btn-nav" data-scroll="competencias">Competências</button></li>
+            <li><button type="button" class="btn-nav" data-scroll="idiomas">Idiomas</button></li>
+          </ul>
+
+          <!-- SELETOR DE IDIOMA — discreto, integrado ao menu -->
+          <div class="seletor-idioma" aria-label="Selecionar idioma">
+            <a href="Main_CV.html" class="lang-btn lang-ativo" hreflang="pt-BR" aria-current="page">PT</a>
+            <span class="lang-separador" aria-hidden="true">|</span>
+            <a href="/en/En_CV.html" class="lang-btn" hreflang="en">EN</a>
+          </div>
+        </nav>
+
+        <!-- ============================================================
+           PAINEL DE ACESSIBILIDADE — Aside retrátil pelo lado direito da tela
+           Ativado pelo botão flutuante .btn-acessibilidade (♿).
+           Classe .painel-aberto é adicionada via JS ao togglePainel().
+           ============================================================ -->
+        <section
+          class="painel-acessibilidade"
+          id="painel-acessibilidade"
+          aria-label="Painel de acessibilidade"
+          aria-hidden="true"
+        >
+          <div class="painel-topo">
+
+            <!-- Cabeçalho do painel com botão de fechar -->
+            <div class="painel-header">
+              <h3>Acessibilidade</h3>
+              <button
+                class="btn-fechar"
+                onclick="togglePainel()"
+                aria-label="Fechar painel de acessibilidade"
+              >↩</button>
+            </div>
+
+            <!-- Lista de controles de acessibilidade -->
+            <div class="topicos-acessibilidade">
+
+              <!-- TIPOGRAFIA: Zoom de texto (A- / ↺ / A+) -->
+              <div class="item-acess">
+                <span id="label-zoom">Tamanho do Texto</span>
+                <div class="botoes-grupo" role="group" aria-labelledby="label-zoom">
+                  <button
+                    onclick="alterarZoom('out')"
+                    aria-label="Diminuir tamanho do texto"
+                    title="Diminuir texto"
+                  >A-</button>
+
+                  <!-- Botão reset: oculto quando no padrão, visível via JS -->
+                  <button
+                    id="btn-reset-zoom"
+                    class="btn-reset"
+                    onclick="resetZoom()"
+                    aria-label="Resetar tamanho do texto"
+                    title="Resetar tamanho"
+                  >↺</button>
+
+                  <button
+                    onclick="alterarZoom('in')"
+                    aria-label="Aumentar tamanho do texto"
+                    title="Aumentar texto"
+                  >A+</button>
+                </div>
+              </div>
+
+              <!-- TIPOGRAFIA: Espaçamento de linhas e letras -->
+              <div class="item-acess">
+                <span id="label-espaco">Espaçamento</span>
+                <div class="botoes-grupo" role="group" aria-labelledby="label-espaco">
+                  <button
+                    onclick="alterarEspacamento('menos')"
+                    aria-label="Diminuir espaçamento"
+                    title="Reduzir espaçamento"
+                  >↕-</button>
+
+                  <button
+                    id="btn-reset-espacamento"
+                    class="btn-reset"
+                    onclick="resetEspacamento()"
+                    aria-label="Resetar espaçamento"
+                    title="Resetar espaçamento"
+                  >↺</button>
+
+                  <button
+                    onclick="alterarEspacamento('mais')"
+                    aria-label="Aumentar espaçamento"
+                    title="Aumentar espaçamento"
+                  >↕+</button>
+                </div>
+              </div>
+ 
+              <!-- CONTRASTE: Ativa modo preto/branco de alto contraste -->
+              <button
+                class="btn-opcao"
+                id="btn-contraste"
+                onclick="alternarContraste()"
+                aria-pressed="false"
+              >Alto Contraste</button>
+
+              <!-- FONTE: Substitui toda tipografia por OpenDyslexic -->
+              <button
+                class="btn-opcao"
+                id="btn-dislexia"
+                onclick="alternarFonteDislexia()"
+                aria-pressed="false"
+              >Fonte para Dislexia</button>
+
+              <!-- DALTONISMO: Submenu com 7 filtros + desativar
+                   Hover via CSS; também funciona via JS para touch. -->
+              <div class="grupo-daltonismo">
+                <button
+                  class="btn-opcao btn-daltonismo-toggle"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  id="btn-daltonismo"
+                  onclick="toggleSubmenuDaltonismo()"
+                >Modo Daltonismo ▾</button>
+
+                <div
+                  class="submenu-daltonismo"
+                  id="submenu-daltonismo"
+                  role="group"
+                  aria-label="Tipos de daltonismo"
+                >
+                  <p class="submenu-titulo">Verde / Vermelho</p>
+                  <button class="btn-sub" onclick="ativarDaltonismo('deuteranopia')" aria-pressed="false">Deuteranopia</button>
+                  <button class="btn-sub" onclick="ativarDaltonismo('deuteranomalia')" aria-pressed="false">Deuteranomalia</button>
+                  <button class="btn-sub" onclick="ativarDaltonismo('protanopia')" aria-pressed="false">Protanopia</button>
+                  <button class="btn-sub" onclick="ativarDaltonismo('protanomalia')" aria-pressed="false">Protanomalia</button>
+
+                  <p class="submenu-titulo">Azul / Amarelo</p>
+                  <button class="btn-sub" onclick="ativarDaltonismo('tritanopia')" aria-pressed="false">Tritanopia</button>
+                  <button class="btn-sub" onclick="ativarDaltonismo('tritanomalia')" aria-pressed="false">Tritanomalia</button>
+
+                  <p class="submenu-titulo">Sem cor</p>
+                  <button class="btn-sub" onclick="ativarDaltonismo('acromatopsia')" aria-pressed="false">Acromatopsia</button>
+
+                  <button class="btn-sub btn-sub-desativar" onclick="ativarDaltonismo(null)">✕ Desativar</button>
+                </div>
+              </div>
+
+              <!-- RECURSOS EXTRAS -->
+              <button
+                class="btn-opcao"
+                id="btn-links"
+                onclick="alternarLinks()"
+                aria-pressed="false"
+              >Destacar Links</button>
+
+              <button
+                class="btn-opcao"
+                id="btn-guia"
+                onclick="alternarGuiaLeitura()"
+                aria-pressed="false"
+                title="Ativar régua horizontal"
+              >Guia de Leitura</button>
+
+              <button
+                class="btn-opcao"
+                id="btn-cursor"
+                onclick="alternarCursorAcessivel()"
+                aria-pressed="false"
+                title="Destacar cursor"
+              >Cursor Acessível</button>
+
+              <!-- MOTION: Reduz/corta animações e transições -->
+              <button
+                class="btn-opcao"
+                id="btn-motion"
+                onclick="alternarMotion()"
+                aria-pressed="false"
+                title="Pausar animações"
+              >Reduzir Animações</button>
+
+            </div>
+            <!-- fim .topicos-acessibilidade -->
+          </div>
+          <!-- fim .painel-topo -->
+
+           <!-- Rodapé do painel: Reset Geral de Acessibilidade -->
+          <div class="painel-rodape">
+            <hr class="divisor-painel" />
+            <button
+              class="btn-reset-geral"
+              id="btn-reset-geral"
+              onclick="resetGeralAcessibilidade()"
+              aria-label="Resetar todas as configurações de acessibilidade"
+              title="Redefinir configurações"
+            >↺ Restaurar Padrões</button>
+          </div>
+
+        </section>
+        <!-- fim .painel-acessibilidade -->
+
+        <!-- ============================================================
+           PAINEL DE USABILIDADE — Nova Central do Site
+           Retrátil pela esquerda, mesmo padrão visual do painel de acess.
+           Ativado pelo botão flutuante .btn-usabilidade (⚙).
+           Classe .painel-aberto é adicionada via JS ao togglePainelUso().
+           ============================================================ -->
+        <section
+          class="painel-usabilidade"
+          id="painel-usabilidade"
+          aria-label="Painel de usabilidade"
+          aria-hidden="true"
+        >
+          <div class="painel-topo">
+
+            <!-- Cabeçalho do painel de usabilidade -->
+            <div class="painel-header">
+              <h3>Preferências</h3>
+              <button
+                class="btn-fechar"
+                onclick="togglePainelUso()"
+                aria-label="Fechar painel de usabilidade"
+              >↩</button>
+            </div>
+
+            <div class="topicos-acessibilidade">
+
+              <!-- TEMA: Alternador Claro / Escuro / Sistema -->
+              <div class="item-acess item-acess-tema">
+                <span id="label-tema">Tema</span>
+                <div class="botoes-grupo botoes-tema" role="group" aria-labelledby="label-tema">
+                  <button
+                    class="btn-tema"
+                    id="btn-tema-claro"
+                    onclick="definirTema('light')"
+                    aria-pressed="false"
+                    aria-label="Tema claro"
+                    title="Tema Claro"
+                  >☀</button>
+                  <button
+                    class="btn-tema"
+                    id="btn-tema-sistema"
+                    onclick="definirTema('system')"
+                    aria-pressed="true"
+                    aria-label="Tema do sistema"
+                    title="Seguir sistema"
+                  >⊙</button>
+                  <button
+                    class="btn-tema"
+                    id="btn-tema-escuro"
+                    onclick="definirTema('dark')"
+                    aria-pressed="false"
+                    aria-label="Tema escuro"
+                    title="Tema Escuro"
+                  >🌙</button>
+                </div>
+              </div>
+
+              <!-- ATALHO: Link para o Hub de Portfólio (futuro) -->
+             <a
+  href="javascript:void(0);"
+  class="btn-opcao btn-hub"
+  id="btn-hub-portfolio"
+  onclick="dispararBloqueioHub(this)"
+  aria-label="Acessar Hub de Portfólio (em breve)"
+  title="Em desenvolvimento"
+>
+  🗂 Hub de Portfólio <span class="badge-em-breve">em breve</span>
+</a>
+              <!-- COMPARTILHAR: Copia o link do site para a área de transferência -->
+              <button
+                class="btn-opcao btn-copy"
+                id="btn-compartilhar"
+                onclick="compartilharSite()"
+                aria-label="Copiar link do site"
+              >🔗 Compartilhar Site</button>
+
+            </div>
+            <!-- fim .topicos-usabilidade -->
+          </div>
+          <!-- fim .painel-topo -->
+
+          <!-- Rodapé do painel de usabilidade: bloco de feedback (movido do painel de acessibilidade) -->
+          <div class="painel-rodape">
+            <hr class="divisor-painel" />
+            <p>O que posso melhorar?</p>
+            <!-- Tally com Hidden Field: ?senha=castro
+                 No painel do Tally, crie um campo oculto com parâmetro "senha".
+                 O valor "castro" será preenchido automaticamente na submissão.
+                 Para validar: verifique o campo no painel de respostas do Tally. -->
+            <a
+              href="https://tally.so/r/Gxbk9O?senha=castro"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-feedback"
+              aria-label="Enviar dicas, sugestões ou críticas"
+              title="Dar feedback"
+            >💡 Dicas, Sugestões ou Críticas</a>
+            <p 
+            style="
+            font-size: 0.8em;
+            margin-top: 5px;
+            color: #666;"
+            >Senha de acesso:
+              <strong>
+                castro
+              </strong>
+            </p>
+          </div>
+
+        </section> <!-- fim .painel-usabilidade -->
+
+
+      </aside>
+      <!-- fim .aside-esquerdo -->
+
+      <!-- ==================================================
+         CONTEÚDO PRINCIPAL
+         O <main> recebe a classe .painel-conteudo-aberto via JS
+         ao abrir o painel de acessibilidade, aplicando um
+         transform: translateX(-40px) sem quebrar o grid layout.
+         ================================================== -->
+      <main class="conteudo-principal" id="conteudo-principal">
+
+        <!-- ============================================================
+           HEADER — Apresentação pessoal
+           Animação fade-in-up aplicada via CSS com prefers-reduced-motion.
+           ============================================================ -->
+        <header class="secao-header" id="inicio">
+          <div class="header-acento" aria-hidden="true"></div>
+          <h1>Willian Gabriel<br />de Oliveira Castro</h1>
+          <p class="subtitulo">Desenvolvedor Front-End</p>
+
+          <!-- Dados de contato com links acessíveis -->
+          <address class="contato" aria-label="Informações de contato">
+            <span class="contato-item">
+              <span aria-hidden="true">🏚</span>
+              <a
+                href="https://maps.app.goo.gl/MYYPBsaobdkVvXi67"
+                target="blank"
+                rel="noopener noreferrer"
+                aria-label="Localização: Porto Real, RJ — abrir no Google Maps"
+              >Porto Real – RJ</a>
+            </span>
+
+            <span class="contato-item">
+              <span aria-hidden="true">☎</span>
+              <a href="tel:+5524992340834" target="_blank" aria-label="Telefone: (24) 99234-0834">(24) 99234-0834</a>
+            </span>
+
+            <span class="contato-item">
+              <span aria-hidden="true">✉</span>
+              <a
+                href="mailto:liell.castro@outlook.com?subject=Sobre%20seu%20Portfólio"
+                target="_blank"
+                aria-label="Enviar e-mail para liell.castro@outlook.com"
+                onclick="
+                window.open(this.href);
+                return false;
+              "
+              >liell.castro@outlook.com</a>
+            </span>
+
+            <span class="contato-item">
+              <span aria-hidden="true">⏳</span>
+              19 anos
+            </span>
+          </address>
+        </header>
+
+        <!-- ============================================================
+           OBJETIVO PROFISSIONAL
+           Texto objetivo, máx. 2-3 linhas. Animação fade-in-up.
+           ============================================================ -->
+        <section class="secao-objetivo" id="objetivo" aria-labelledby="titulo-objetivo">
+          <h2 id="titulo-objetivo">Objetivo Profissional</h2>
+          <p>
+            Busco uma oportunidade para contribuir com foco, responsabilidade e
+            bom desempenho, aplicando minhas habilidades organizacionais e
+            facilidade com ferramentas digitais, enquanto desenvolvo novas
+            competências e cresço junto à empresa.
+          </p>
+        </section>
+
+        <!-- ============================================================
+           EXPERIÊNCIA PROFISSIONAL
+           Timeline de cards com visual limpo.
+           Cada .card-experiencia contém: cargo, empresa, período e descrição.
+           ============================================================ -->
+        <section class="secao-experiencia" id="experiencia" aria-labelledby="titulo-experiencia">
+          <h2 id="titulo-experiencia">Experiência Profissional</h2>
+
+          <ol class="lista-experiencias" reversed aria-label="Histórico de experiências profissionais">
+
+            <li class="card-experiencia">
+              <div class="card-cabecalho">
+                <div class="card-info">
+                  <span class="card-cargo">Apoio Estratégico e Operacional</span>
+                  <span class="card-empresa">D.C.E Serviços Prestados LTDA.</span>
+                </div>
+                <span class="card-periodo">Jan/2026 – Mar/2026</span>
+              </div>
+              <p>Apoio a diferentes setores da empresa, contribuição em discussões internas, suporte em ações de marketing e auxílio em demandas técnicas básicas.</p>
+            </li>
+
+            <li class="card-experiencia">
+              <div class="card-cabecalho">
+                <div class="card-info">
+                  <span class="card-cargo">Operador de Caixa</span>
+                  <span class="card-empresa">D.C.E Serviços Prestados LTDA.</span>
+                </div>
+                <span class="card-periodo">Ago/2025 – Dez/2025</span>
+              </div>
+              <p>Atendimento ao cliente, registro de compras e controle de valores, organização do ambiente e apoio no auxílio ao cliente.</p>
+            </li>
+
+            <li class="card-experiencia">
+              <div class="card-cabecalho">
+                <div class="card-info">
+                  <span class="card-cargo">Repositor</span>
+                  <span class="card-empresa">D.C.E Serviços Prestados LTDA.</span>
+                </div>
+                <span class="card-periodo">Fev/2025 – Jul/2025</span>
+              </div>
+              <p>Controle de qualidade e validade, limpeza, reposição e organização do salão, atendimento ao cliente e auxílio no estoque.</p>
+            </li>
+
+            <li class="card-experiencia">
+              <div class="card-cabecalho">
+                <div class="card-info">
+                  <span class="card-cargo">Ajudante de Ornamentação</span>
+                  <span class="card-empresa">Gilberto Eventos</span>
+                </div>
+                <span class="card-periodo">Out/2021 – Fev/2022</span>
+              </div>
+              <p>Carga e descarga de caminhão, distribuição e organização de equipamentos, decoração, fotografia e edição de imagens.</p>
+            </li>
+
+          </ol>
+        </section>
+
+        <!-- ============================================================
+           FORMAÇÃO EDUCACIONAL
+           Layout separado visualmente dos cursos extracurriculares.
+           Cards com estrutura diferente da timeline de experiência.
+           ============================================================ -->
+        <section class="secao-formacao" id="formacao" aria-labelledby="titulo-formacao">
+          <h2 id="titulo-formacao">Formação Educacional</h2>
+
+          <div class="grade-formacao">
+
+            <!-- Formação destacada (principal) -->
+            <article class="card-formacao card-formacao-destaque">
+              <div class="formacao-icone" aria-hidden="true">🎓</div>
+              <div class="formacao-conteudo">
+                <span class="formacao-titulo">Bacharelado em Sistemas de Informação</span>
+                <span class="formacao-instituicao">Centro Universitário de Volta Redonda</span>
+                <span class="formacao-periodo formacao-periodo-ativo">Cursando — 2º período</span>
+              </div>
+            </article>
+
+            <!-- Formações secundárias -->
+            <article class="card-formacao">
+              <div class="formacao-icone" aria-hidden="true">📜</div>
+              <div class="formacao-conteudo">
+                <span class="formacao-titulo">Curso Técnico em Magistério</span>
+                <span class="formacao-instituicao">Instituto de Educação Prof. Manuel Marinho</span>
+                <span class="formacao-periodo">Concluído em 2024</span>
+              </div>
+            </article>
+
+            <article class="card-formacao">
+              <div class="formacao-icone" aria-hidden="true">🏫</div>
+              <div class="formacao-conteudo">
+                <span class="formacao-titulo">Ensino Médio</span>
+                <span class="formacao-instituicao">Instituto de Educação Prof. Manuel Marinho</span>
+                <span class="formacao-periodo">Concluído em 2024</span>
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+        <!-- ============================================================
+           CURSOS EXTRACURRICULARES
+           Grade CSS auto-ajustável. Separado visualmente da Formação.
+           Os cursos são apresentados lado a lado em grid responsivo.
+           ============================================================ -->
+        <section class="secao-cursos" id="cursos" aria-labelledby="titulo-cursos">
+          <h2 id="titulo-cursos">Cursos Extracurriculares</h2>
+
+          <ul class="grade-cursos" role="list" aria-label="Cursos extracurriculares realizados">
+
+            <li class="card-curso">
+              <span class="curso-nome">Inteligência Artificial</span>
+              <span class="curso-info">Microlins · Início em Jun/2026</span>
+            </li>
+
+            <li class="card-curso">
+              <span class="curso-nome">Operador de Sistemas Computacionais em Rede</span>
+              <span class="curso-info">Firjan Senai · Concluído em 2026</span>
+            </li>
+
+            <li class="card-curso">
+              <span class="curso-nome">Inglês Intermediário</span>
+              <span class="curso-info">Enjoy Inglês Profissionalizante · 2023</span>
+            </li>
+
+            <li class="card-curso">
+              <span class="curso-nome">Informática</span>
+              <span class="curso-info">Enjoy Inglês Profissionalizante · 2023</span>
+            </li>
+
+            <li class="card-curso">
+              <span class="curso-nome">Administração de Negócios</span>
+              <span class="curso-info">Enjoy Inglês Profissionalizante · 2023</span>
+            </li>
+
+            <li class="card-curso">
+              <span class="curso-nome">Marketing Digital</span>
+              <span class="curso-info">Enjoy Inglês Profissionalizante · 2022</span>
+            </li>
+
+            <li class="card-curso">
+              <span class="curso-nome">Operador de Mídias Sociais</span>
+              <span class="curso-info">Enjoy Inglês Profissionalizante · 2022</span>
+            </li>
+
+          </ul>
+        </section>
+
+        <!-- ============================================================
+           COMPETÊNCIAS TÉCNICAS
+           Tags visuais para tecnologias, ferramentas e soft skills.
+           Estrutura simples com animação de hover invertida.
+           ============================================================ -->
+        <section class="secao-competencias" id="competencias" aria-labelledby="titulo-competencias">
+          <h2 id="titulo-competencias">Competências Técnicas</h2>
+          <ul class="lista-tags" role="list" aria-label="Lista de competências técnicas">
+            <li class="tag">Pacote Office</li>
+            <li class="tag">Power BI</li>
+            <li class="tag">Canva</li>
+            <li class="tag">VS Code</li>
+            <li class="tag">HTML5</li>
+            <li class="tag">CSS3</li>
+            <li class="tag">JavaScript</li>
+            <li class="tag">Adobe Photoshop</li>
+            <li class="tag">Adobe Lightroom</li>
+            <li class="tag">Adobe After Effects</li>
+            <li class="tag">N8n</li>
+            <li class="tag">Cisco Packet Tracer</li>
+          </ul>
+        </section>
+
+        <!-- ============================================================
+           IDIOMAS — Cards 3D com rotação no hover
+           Estrutura: .card-idioma > .idioma-inner > .idioma-frente / .idioma-verso
+           A perspectiva CSS (perspective: 1000px) cria a profundidade 3D.
+           backface-visibility: hidden oculta o verso enquanto não rotacionado.
+           ============================================================ -->
+        <section class="secao-idiomas" id="idiomas" aria-labelledby="titulo-idiomas">
+          <h2 id="titulo-idiomas">Idiomas</h2>
+
+          <ul class="lista-idiomas" role="list" aria-label="Idiomas e níveis de proficiência">
+
+            <li class="card-idioma" tabindex="0" aria-label="Português — Nativo. Verso: Fluência completa para relatórios e reuniões.">
+              <div class="idioma-inner" aria-hidden="true">
+                <div class="idioma-frente">
+                  <span class="idioma-nome">Português</span>
+                  <span class="idioma-nivel">Nativo</span>
+                </div>
+                <div class="idioma-verso">
+                  <span class="idioma-descricao">Fluência completa para relatórios e reuniões.</span>
+                </div>
+              </div>
+            </li>
+
+            <li class="card-idioma" tabindex="0" aria-label="Inglês — Intermediário. Verso: Leitura técnica e conversação diária.">
+              <div class="idioma-inner" aria-hidden="true">
+                <div class="idioma-frente">
+                  <span class="idioma-nome">Inglês</span>
+                  <span class="idioma-nivel">Intermediário</span>
+                </div>
+                <div class="idioma-verso">
+                  <span class="idioma-descricao">Leitura técnica e conversação diária.</span>
+                </div>
+              </div>
+            </li>
+
+            <li class="card-idioma" tabindex="0" aria-label="Francês — Básico. Verso: Vocabulário simples e saudações.">
+              <div class="idioma-inner" aria-hidden="true">
+                <div class="idioma-frente">
+                  <span class="idioma-nome">Francês</span>
+                  <span class="idioma-nivel">Básico</span>
+                </div>
+                <div class="idioma-verso">
+                  <span class="idioma-descricao">Vocabulário simples e saudações.</span>
+                </div>
+              </div>
+            </li>
+
+          </ul>
+        </section>
+
+      </main>
+      <!-- fim .conteudo-principal -->
+
+      <!-- ==================================================
+         PAINEL DIREITO — Status, Trajetória e Citação
+         Visível apenas em telas largas (>1100px via CSS).
+         Oculto elegantemente abaixo desse breakpoint.
+         ================================================== -->
+      <aside class="painel-direito" aria-label="Status e trajetória">
+
+        <!-- BLOCO 1: Status de disponibilidade -->
+        <div class="bloco-lateral bloco-status">
+          <span class="status-indicador" aria-label="Disponível"></span>
+          <div class="status-texto">
+            <strong>Disponível</strong>
+            <span>para oportunidades</span>
+            <small>Presencial · Híbrido · Remoto</small>
+            <small>Porto Real, Resende, Barra Mansa &amp; Volta Redonda – RJ</small>
+          </div>
+        </div>
+
+        <!-- BLOCO 2: Linha do tempo da trajetória pessoal -->
+        <div class="bloco-lateral bloco-timeline">
+          <h4 class="bloco-titulo">Trajetória</h4>
+          <ol class="timeline-pessoal" aria-label="Linha do tempo da trajetória">
+            <li class="timeline-item">
+              <span class="timeline-ano">2021</span>
+              <span class="timeline-desc">Primeiro freelance — fotografia e design</span>
+            </li>
+            <li class="timeline-item">
+              <span class="timeline-ano">2022</span>
+              <span class="timeline-desc">Cursos de marketing e mídias sociais</span>
+            </li>
+            <li class="timeline-item">
+              <span class="timeline-ano">2023</span>
+              <span class="timeline-desc">Inglês, informática, administração; base em web e design gráfico</span>
+            </li>
+            <li class="timeline-item">
+              <span class="timeline-ano">2024</span>
+              <span class="timeline-desc">Concluiu Ensino Médio e técnico em Magistério</span>
+            </li>
+            <li class="timeline-item">
+              <span class="timeline-ano">2025</span>
+              <span class="timeline-desc">Primeiro emprego formal; ingressou na faculdade</span>
+            </li>
+            <li class="timeline-item timeline-item-atual" aria-current="true">
+              <span class="timeline-ano timeline-ano-atual">2026</span>
+              <span class="timeline-desc">Cursos Senai · IA e automações · Desenvolvimento Web</span>
+            </li>
+          </ol>
+        </div>
+
+        <!-- BLOCO 3: Citação inspiracional -->
+        <div class="bloco-lateral bloco-citacao">
+          <blockquote>
+            Não tenho necessariamente que gostar de meus jogadores e sócios, mas
+            como líder devo amá-los. O amor é lealdade, o amor é trabalho em
+            equipe, o amor respeita a dignidade e a individualidade.
+          </blockquote>
+          <cite>Vince Lombardi</cite>
+        </div>
+
+      </aside>
+      <!-- fim .painel-direito -->
+
+    </div>
+    <!-- fim .layout-wrapper -->
+
+    <!-- ============================================================
+       FOOTER
+       Redes sociais, créditos e botão de feedback destacado.
+       ============================================================ -->
+    <footer class="footer" id="footer">
+      <nav class="social-links" aria-label="Redes sociais e perfis profissionais">
+        <a href="https://github.com/Liell-Castro" target="_blank" rel="noopener noreferrer" aria-label="GitHub de Willian Gabriel">GitHub</a>
+                <a href="https://discord.com/users/__konshu__" target="_blank" rel="noopener noreferrer" aria-label="Willian on Discord">Discord</a>
+        <a href="https://linkedin.com/in/liell-castro" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de Willian Gabriel">LinkedIn</a>
+                <a href="https://www.reddit.com/user/liell_castro/" target="_blank" rel="noopener noreferrer" aria-label="Willian on Reddit">Reddit</a>
+        <a href="https://www.instagram.com/liell.castro" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Willian Gabriel">Instagram</a>
+        <a href="https://www.infojobs.com.br/candidate/cv/detail2.aspx" target="_blank" rel="noopener noreferrer" aria-label="Perfil no Infojobs">Infojobs</a>      </nav>
+
+      <p class="creditos">
+        <span>Porto Real – RJ</span>
+        <span class="creditos-separador" aria-hidden="true">·</span>
+        <span>Atualizado em Junho de 2026</span>
+      </p>
+    </footer>
+
+    <!-- ============================================================
+       BOTÃO FLUTUANTE DE ACESSIBILIDADE ♿
+       Posicionado fora do aside para garantir que permaneça fixo
+       mesmo com o painel fechado. z-index alto (2000).
+       ============================================================ -->
+    <button
+      class="btn-acessibilidade"
+      id="btn-acessibilidade"
+      onclick="togglePainel()"
+      aria-label="Abrir menu de acessibilidade"
+      aria-controls="painel-acessibilidade"
+      aria-expanded="false"
+    >♿</button>
+
+    <!-- ============================================================
+       BOTÃO IMPRIMIR / SALVAR PDF
+       Posicionado no canto inferior esquerdo.
+       ============================================================ -->
+    <button
+      class="btn-imprimir"
+      onclick="window.print()"
+      aria-label="Salvar currículo em PDF"
+    >🖨️ Salvar PDF</button>
+
+    <!-- Script principal de acessibilidade e interações -->
+    <script src="../js/scripts.js"></script>
+
+  </body>
+</html>

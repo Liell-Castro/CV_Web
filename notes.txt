@@ -1,0 +1,59 @@
+logo após body
+logo antes de section
+// animações para o header total!!!!
+
+h1 {
+  font-size: 1.5rem;
+  color: #666;
+  letter-spacing: 0px;
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: inline-block;
+}
+
+h1:hover {
+  letter-spacing: 2px; /* As letras se separam elegantemente */
+  color: #00e5ff; /* Uma cor de destaque */
+  text-shadow: 0 0 8px rgba(0, 229, 255, 0.6); /* Um brilho neon bem sutil */
+}
+
+.subtitulo {
+  display: inline-block;
+  position: relative;
+  transition: color 0.4s ease;
+  cursor: text;
+}
+
+/* O efeito do gradiente surgindo */
+.subtitulo::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px; /* Linha estilizada que cresce embaixo */
+  bottom: -2px;
+  left: 0;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-hover)); /* Mude para as cores do seu tema */
+  transform-origin: bottom right;
+  transition: transform 0.4s ease-out;
+}
+
+.subtitulo:hover {
+  color: var(--color-accent-hover); /* O nome muda de cor suavemente */
+}
+
+.subtitulo:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+
+EFEITO HOVER ON H1 N SUBTITULO
+CONSERTAR - MODO DALTONISMO - ATIVO DESLIGA OS OUTROS 
+MEDIA QUERY - PAINEL-ACESS SENDO SOBREPOSTO EM MIDIAS > 768PX
+ATUALIZAR HTML EN
+ORGANIZAR DOCS
+ESTUDAR JS
+ENTENDER ALGUMAS FUNÇÕES HTML N CSS
+RESOLVER O """BUG""" DE ESPAÇAMENTO DE LINHA/LETRA
+PROGRAMAR PYTHON PARA TRADUÇÃO GERAL
+ATUALIZAR LICENSE/README.MD

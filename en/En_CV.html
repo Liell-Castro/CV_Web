@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO -->
+    <meta
+      name="description"
+      content="Professional résumé of Willian Gabriel de Oliveira Castro — Front-End Developer, Information Systems student."
+    />
+    <meta name="author" content="Willian Gabriel de Oliveira Castro" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Willian Gabriel — Front-End Developer" />
+    <meta
+      property="og:description"
+      content="Online résumé with full accessibility panel, personal timeline and skills portfolio."
+    />
+
+    <title>Résumé | Willian Gabriel</title>
+
+    <!-- Ícone do site -->
+    <link rel="icon" href="../assets/img/JavaScript_black-icon.jpg" type="image/jpeg" />
+
+    <!-- ============================================================
+       SHARED FONTS — same as PT-BR version
+       Both versions (PT and EN) share the same CSS and JS files
+       via relative paths (../css/ and ../js/).
+       This keeps the codebase DRY and consistent.
+       ============================================================ -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/opendyslexic@1.0.3/opendyslexic.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Shared stylesheet — relative path from /en/ to /css/ -->
+    <link rel="stylesheet" href="../css/Main_CV.css" />
+
+    <!-- Google Analytics placeholder (same as PT-BR) -->
+    <!--
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX', { anonymize_ip: true });
+    </script>
+    -->
+  </head>
+
+  <body>
+
+    <!-- ============================================================
+       SVG FILTROS DE DALTONISMO — automáticos e independentes de tema
+       
+       COMO FUNCIONA:
+       Os filtros SVG usam feColorMatrix para remapear as cores da tela.
+       São aplicados via CSS filter: url(#filtro-xxx) no <main> e <footer>.
+       Funcionam automaticamente em qualquer tema (light/dark/alto-contraste)
+       pois operam em cima dos pixels renderizados, não nas variáveis CSS.
+       
+       Os filtros NÃO são aplicados no body para evitar o bug de
+       congelamento de position:fixed (painel, botões, guia de leitura).
+       
+       As matrizes são de domínio público e baseadas nos estudos de
+       Machado et al. (2009) sobre simulação de deficiências de cor.
+       
+       TIPOS:
+       ┌─ Verde/Vermelho ─────────────────────────────────────────────┐
+       │ deuteranopia    → ausência total de cones M (verde)          │
+       │ deuteranomalia  → cones M deslocados (forma leve)            │
+       │ protanopia      → ausência total de cones L (vermelho)       │
+       │ protanomalia    → cones L deslocados (forma leve)            │
+       ├─ Azul/Amarelo ───────────────────────────────────────────────┤
+       │ tritanopia      → ausência total de cones S (azul)           │
+       │ tritanomalia    → cones S deslocados (forma leve)            │
+       ├─ Sem cor ─────────────────────────────────────────────────────┤
+       │ acromatopsia    → ausência de todos os cones (saturate:0)    │
+       └───────────────────────────────────────────────────────────────┘
+       ============================================================ -->
+    <svg
+      id="filtros-daltonismo"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      focusable="false"
+      style="position: absolute; width: 0; height: 0; overflow: hidden"
+    >
+      <defs>
+        <!-- Deuteranopia: sem cones verdes — confunde verde com vermelho/amarelo -->
+        <filter id="filtro-deuteranopia">
+          <feColorMatrix type="matrix" values="
+            0.625 0.375 0     0 0
+            0.7   0.3   0     0 0
+            0     0.3   0.7   0 0
+            0     0     0     1 0" />
+        </filter>
+
+        <!-- Deuteranomalia: cones verdes deslocados — versão leve da deuteranopia -->
+        <filter id="filtro-deuteranomalia">
+          <feColorMatrix type="matrix" values="
+            0.8   0.2   0     0 0
+            0.258 0.742 0     0 0
+            0     0.142 0.858 0 0
+            0     0     0     1 0" />
+        </filter>
+
+        <!-- Protanopia: sem cones vermelhos — vermelho aparece escuro/marrom -->
+        <filter id="filtro-protanopia">
+          <feColorMatrix type="matrix" values="
+            0.567 0.433 0     0 0
+            0.558 0.442 0     0 0
+            0     0.242 0.758 0 0
+            0     0     0     1 0" />
+        </filter>
+
+        <!-- Protanomalia: cones vermelhos deslocados — versão leve da protanopia -->
+        <filter id="filtro-protanomalia">
+          <feColorMatrix type="matrix" values="
+            0.817 0.183 0     0 0
+            0.333 0.667 0     0 0
+            0     0.125 0.875 0 0
+            0     0     0     1 0" />
+        </filter>
+
+        <!-- Tritanopia: sem cones azuis — azul/amarelo confundidos com verde/rosa -->
+        <filter id="filtro-tritanopia">
+          <feColorMatrix type="matrix" values="
+            0.95  0.05  0     0 0
+            0     0.433 0.567 0 0
+            0     0.475 0.525 0 0
+            0     0     0     1 0" />
+        </filter>
+
+        <!-- Tritanomalia: cones azuis deslocados — versão leve da tritanopia -->
+        <filter id="filtro-tritanomalia">
+          <feColorMatrix type="matrix" values="
+            1     0     0     0 0
+            0     0.733 0.267 0 0
+            0     0.183 0.817 0 0
+            0     0     0     1 0" />
+        </filter>
+
+        <!-- Acromatopsia: ausência total de cor — visão completamente em escala de cinza -->
+        <filter id="filtro-acromatopsia">
+          <feColorMatrix type="saturate" values="0" />
+        </filter>
+      </defs>
+    </svg>
+
+    <div id="guia-leitura" class="guia-leitura" aria-hidden="true"></div>
+
+    <div class="layout-wrapper">
+
+      <!-- ASIDE ESQUERDO — navegação e painel de acessibilidade -->
+      <aside class="aside-esquerdo" id="aside-esquerdo" aria-label="Navigation and accessibility">
+
+        <nav class="menu-nav" id="menu-nav" aria-label="Section navigation">
+
+          <!-- Header do aside: botão de usabilidade -->
+          <div class="header-aside">
+            <button
+              class="btn-usabilidade"
+              id="btn-usabilidade"
+              onclick="togglePainelUso()"
+              aria-label="Open usability menu"
+              aria-controls="painel-usabilidade"
+              aria-expanded="false"
+            >☰</button>
+          </div>
+
+          <ul role="list">
+            <li><button type="button" class="btn-nav" data-scroll="inicio">Home</button></li>
+            <li><button type="button" class="btn-nav" data-scroll="objetivo">Objective</button></li>
+            <li><button type="button" class="btn-nav" data-scroll="experiencia">Experience</button></li>
+            <li><button type="button" class="btn-nav" data-scroll="formacao">Education</button></li>
+            <li><button type="button" class="btn-nav" data-scroll="cursos">Courses</button></li>
+            <li><button type="button" class="btn-nav" data-scroll="competencias">Skills</button></li>
+            <li><button type="button" class="btn-nav" data-scroll="idiomas">Languages</button></li>
+          </ul>
+
+          <div class="seletor-idioma" aria-label="Select language">
+            <a href="../html/Main_CV.html" class="lang-btn" hreflang="pt-BR">PT</a>
+            <span class="lang-separador" aria-hidden="true">|</span>
+            <a href="En_CV.html" class="lang-btn lang-ativo" hreflang="en" aria-current="page">EN</a>
+          </div>
+        </nav>
+
+        <!-- Painel de acessibilidade — mesma estrutura do PT-BR -->
+        <section
+          class="painel-acessibilidade"
+          id="painel-acessibilidade"
+          aria-label="Accessibility panel"
+          aria-hidden="true"
+        >
+          <div class="painel-topo">
+            <div class="painel-header">
+              <h3>Accessibility</h3>
+              <button class="btn-fechar" onclick="togglePainel()" aria-label="Close accessibility panel">↩</button>
+            </div>
+
+            <div class="topicos-acessibilidade">
+
+              <div class="item-acess">
+                <span id="label-zoom">Text Size</span>
+                <div class="botoes-grupo" role="group" aria-labelledby="label-zoom">
+                  <button onclick="alterarZoom('out')" aria-label="Decrease text size">A-</button>
+                  <button id="btn-reset-zoom" class="btn-reset" onclick="resetZoom()" aria-label="Reset text size">↺</button>
+                  <button onclick="alterarZoom('in')" aria-label="Increase text size">A+</button>
+                </div>
+              </div>
+
+              <div class="item-acess">
+                <span id="label-espaco">Spacing</span>
+                <div class="botoes-grupo" role="group" aria-labelledby="label-espaco">
+                  <button onclick="alterarEspacamento('menos')" aria-label="Decrease spacing">↕-</button>
+                  <button id="btn-reset-espacamento" class="btn-reset" onclick="resetEspacamento()" aria-label="Reset spacing">↺</button>
+                  <button onclick="alterarEspacamento('mais')" aria-label="Increase spacing">↕+</button>
+                </div>
+              </div>
+
+              <button class="btn-opcao" id="btn-contraste" onclick="alternarContraste()" aria-pressed="false">High Contrast</button>
+              <button class="btn-opcao" id="btn-dislexia" onclick="alternarFonteDislexia()" aria-pressed="false">Dyslexia Font</button>
+
+              <div class="grupo-daltonismo">
+                <button class="btn-opcao btn-daltonismo-toggle" aria-haspopup="true" aria-expanded="false" id="btn-daltonismo" onclick="toggleSubmenuDaltonismo()">Color Blindness ▾</button>
+                <div class="submenu-daltonismo" id="submenu-daltonismo" role="group" aria-label="Color blindness types">
+                  <p class="submenu-titulo">Green / Red</p>
+                  <button class="btn-sub" onclick="ativarDaltonismo('deuteranopia')" aria-pressed="false">Deuteranopia</button>
+                  <button class="btn-sub" onclick="ativarDaltonismo('deuteranomalia')" aria-pressed="false">Deuteranomaly</button>
+                  <button class="btn-sub" onclick="ativarDaltonismo('protanopia')" aria-pressed="false">Protanopia</button>
+                  <button class="btn-sub" onclick="ativarDaltonismo('protanomalia')" aria-pressed="false">Protanomaly</button>
+                  <p class="submenu-titulo">Blue / Yellow</p>
+                  <button class="btn-sub" onclick="ativarDaltonismo('tritanopia')" aria-pressed="false">Tritanopia</button>
+                  <button class="btn-sub" onclick="ativarDaltonismo('tritanomalia')" aria-pressed="false">Tritanomaly</button>
+                  <p class="submenu-titulo">No color</p>
+                  <button class="btn-sub" onclick="ativarDaltonismo('acromatopsia')" aria-pressed="false">Achromatopsia</button>
+                  <button class="btn-sub btn-sub-desativar" onclick="ativarDaltonismo(null)">✕ Disable</button>
+                </div>
+              </div>
+
+              <button class="btn-opcao" id="btn-links" onclick="alternarLinks()" aria-pressed="false">Highlight Links</button>
+              <button class="btn-opcao" id="btn-guia" onclick="alternarGuiaLeitura()" aria-pressed="false">Reading Guide</button>
+              <button class="btn-opcao" id="btn-cursor" onclick="alternarCursorAcessivel()" aria-pressed="false">Accessible Cursor</button>
+              <button class="btn-opcao" id="btn-motion" onclick="alternarMotion()" aria-pressed="false">Reduce Animations</button>
+
+            </div>
+          </div>
+
+          <div class="painel-rodape">
+            <hr class="divisor-painel" />
+            <button
+              class="btn-reset-geral"
+              onclick="resetGeralAcessibilidade()"
+              aria-label="Reset all accessibility options"
+            >Reset All</button>
+            <p>What can I improve?</p>
+            <a
+              href="https://tally.so/r/Gxbk9O?senha=castro"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-feedback"
+              aria-label="Send tips or feedback"
+            >💡 Tips, Suggestions or Feedback</a>
+          </div>
+        </section>
+
+      </aside>
+
+      <!-- PAINEL DE USABILIDADE — versão em inglês -->
+      <section
+        class="painel-usabilidade"
+        id="painel-usabilidade"
+        aria-label="Usability panel"
+        aria-hidden="true"
+      >
+        <div class="painel-topo">
+          <div class="painel-header">
+            <h3>Settings</h3>
+            <button class="btn-fechar" onclick="togglePainelUso()" aria-label="Close usability panel">↩</button>
+          </div>
+
+          <div class="topicos-acessibilidade">
+
+            <div class="item-acess item-acess-tema">
+              <span id="label-tema">Theme</span>
+              <div class="botoes-tema" role="group" aria-labelledby="label-tema">
+                <button
+                  class="btn-tema btn-opcao"
+                  id="btn-tema-claro"
+                  onclick="definirTema('light')"
+                  aria-pressed="false"
+                  aria-label="Light theme"
+                  title="Light"
+                >☀️</button>
+                <button
+                  class="btn-tema btn-opcao"
+                  id="btn-tema-sistema"
+                  onclick="definirTema('system')"
+                  aria-pressed="true"
+                  aria-label="System theme"
+                  title="System"
+                >🖥️</button>
+                <button
+                  class="btn-tema btn-opcao"
+                  id="btn-tema-escuro"
+                  onclick="definirTema('dark')"
+                  aria-pressed="false"
+                  aria-label="Dark theme"
+                  title="Dark"
+                >🌙</button>
+              </div>
+            </div>
+
+            <div class="item-acess">
+              <span>Portfolio Hub</span>
+              <a
+                class="btn-opcao btn-hub"
+                href="#"
+                aria-disabled="true"
+                tabindex="-1"
+              >
+                <span>Go to Hub</span>
+                <span class="badge-em-breve">Soon</span>
+              </a>
+            </div>
+
+            <div class="item-acess">
+              <span>Share</span>
+              <button
+                class="btn-opcao"
+                id="btn-compartilhar"
+                onclick="compartilharSite()"
+                aria-label="Copy link to clipboard"
+              >🔗 Copy link</button>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="painel-rodape">
+          <hr class="divisor-painel" />
+          <p>Settings & navigation</p>
+        </div>
+      </section>
+
+      <!-- CONTEÚDO PRINCIPAL — inglês -->
+      <main class="conteudo-principal" id="conteudo-principal">
+
+        <header class="secao-header" id="inicio">
+          <div class="header-acento" aria-hidden="true"></div>
+          <h1>Willian Gabriel<br />de Oliveira Castro</h1>
+          <p class="subtitulo">Web Application Developer</p>
+
+          <address class="contato" aria-label="Contact information">
+            <span class="contato-item">
+              <span aria-hidden="true">🏚</span>
+              <a
+                href="https://maps.app.goo.gl/MYYPBsaobdkVvXi67"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Location: Porto Real, RJ — open in Google Maps"
+              >Porto Real – RJ, Brazil</a>
+            </span>
+            <span class="contato-item">
+              <span aria-hidden="true">☎</span>
+              <a href="tel:+5524992340834" aria-label="Phone: +55 (24) 99234-0834">+55 (24) 99234-0834</a>
+            </span>
+            <span class="contato-item">
+              <span aria-hidden="true">✉</span>
+              <a
+                href="mailto:liell.castro@outlook.com?subject=About%20your%20Portfolio"
+                aria-label="Send email to liell.castro@outlook.com"
+              >liell.castro@outlook.com</a>
+            </span>
+            <span class="contato-item">
+              <span aria-hidden="true">⏳</span>
+              19 years old
+            </span>
+          </address>
+        </header>
+
+        <section class="secao-objetivo" id="objetivo" aria-labelledby="titulo-objetivo">
+          <h2 id="titulo-objetivo">Professional Objective</h2>
+          <p>
+            I seek an opportunity to contribute with focus, responsibility and strong performance,
+            applying my organizational skills and ease with digital tools, while developing new
+            competencies and growing alongside the company.
+          </p>
+        </section>
+
+        <section class="secao-experiencia" id="experiencia" aria-labelledby="titulo-experiencia">
+          <h2 id="titulo-experiencia">Professional Experience</h2>
+          <ol class="lista-experiencias" reversed aria-label="Professional experience history">
+
+            <li class="card-experiencia">
+              <div class="card-cabecalho">
+                <div class="card-info">
+                  <span class="card-cargo">Strategic and Operational Support</span>
+                  <span class="card-empresa">D.C.E Serviços Prestados LTDA.</span>
+                </div>
+                <span class="card-periodo">Jan/2026 – Mar/2026</span>
+              </div>
+              <p>Support across different company departments, contribution to internal discussions, marketing action support, and assistance with basic technical demands.</p>
+            </li>
+
+            <li class="card-experiencia">
+              <div class="card-cabecalho">
+                <div class="card-info">
+                  <span class="card-cargo">Cashier Operator</span>
+                  <span class="card-empresa">D.C.E Serviços Prestados LTDA.</span>
+                </div>
+                <span class="card-periodo">Aug/2025 – Dec/2025</span>
+              </div>
+              <p>Customer service, purchase registration and value control, environment organization, and customer assistance.</p>
+            </li>
+
+            <li class="card-experiencia">
+              <div class="card-cabecalho">
+                <div class="card-info">
+                  <span class="card-cargo">Stock Replenisher</span>
+                  <span class="card-empresa">D.C.E Serviços Prestados LTDA.</span>
+                </div>
+                <span class="card-periodo">Feb/2025 – Jul/2025</span>
+              </div>
+              <p>Quality and expiry date control, cleaning, restocking and organization, customer service and inventory support.</p>
+            </li>
+
+            <li class="card-experiencia">
+              <div class="card-cabecalho">
+                <div class="card-info">
+                  <span class="card-cargo">Decoration Assistant</span>
+                  <span class="card-empresa">Gilberto Eventos</span>
+                </div>
+                <span class="card-periodo">Oct/2021 – Feb/2022</span>
+              </div>
+              <p>Loading and unloading trucks, equipment distribution and organization, decoration, photography and editing.</p>
+            </li>
+
+          </ol>
+        </section>
+
+        <section class="secao-formacao" id="formacao" aria-labelledby="titulo-formacao">
+          <h2 id="titulo-formacao">Education</h2>
+          <div class="grade-formacao">
+
+            <article class="card-formacao card-formacao-destaque">
+              <div class="formacao-icone" aria-hidden="true">🎓</div>
+              <div class="formacao-conteudo">
+                <span class="formacao-titulo">Bachelor's Degree in Information Systems</span>
+                <span class="formacao-instituicao">Centro Universitário de Volta Redonda</span>
+                <span class="formacao-periodo formacao-periodo-ativo">In progress — 2nd semester</span>
+              </div>
+            </article>
+
+            <article class="card-formacao">
+              <div class="formacao-icone" aria-hidden="true">📜</div>
+              <div class="formacao-conteudo">
+                <span class="formacao-titulo">Technical Degree in Teaching</span>
+                <span class="formacao-instituicao">Instituto de Educação Prof. Manuel Marinho</span>
+                <span class="formacao-periodo">Completed in 2024</span>
+              </div>
+            </article>
+
+            <article class="card-formacao">
+              <div class="formacao-icone" aria-hidden="true">🏫</div>
+              <div class="formacao-conteudo">
+                <span class="formacao-titulo">High School</span>
+                <span class="formacao-instituicao">Instituto de Educação Prof. Manuel Marinho</span>
+                <span class="formacao-periodo">Completed in 2024</span>
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+        <section class="secao-cursos" id="cursos" aria-labelledby="titulo-cursos">
+          <h2 id="titulo-cursos">Extracurricular Courses</h2>
+          <ul class="grade-cursos" role="list" aria-label="Extracurricular courses">
+
+            <li class="card-curso">
+              <span class="curso-nome">Artificial Intelligence</span>
+              <span class="curso-info">Microlins · Starting Jun/2026</span>
+            </li>
+            <li class="card-curso">
+              <span class="curso-nome">Network Computer Systems Operator</span>
+              <span class="curso-info">Firjan Senai · Completed 2026</span>
+            </li>
+            <li class="card-curso">
+              <span class="curso-nome">Intermediate English</span>
+              <span class="curso-info">Enjoy English · 2023</span>
+            </li>
+            <li class="card-curso">
+              <span class="curso-nome">Computer Skills</span>
+              <span class="curso-info">Enjoy English · 2023</span>
+            </li>
+            <li class="card-curso">
+              <span class="curso-nome">Business Administration</span>
+              <span class="curso-info">Enjoy English · 2023</span>
+            </li>
+            <li class="card-curso">
+              <span class="curso-nome">Digital Marketing</span>
+              <span class="curso-info">Enjoy English · 2022</span>
+            </li>
+            <li class="card-curso">
+              <span class="curso-nome">Social Media Operator</span>
+              <span class="curso-info">Enjoy English · 2022</span>
+            </li>
+
+          </ul>
+        </section>
+
+        <section class="secao-competencias" id="competencias" aria-labelledby="titulo-competencias">
+          <h2 id="titulo-competencias">Technical Skills</h2>
+          <ul class="lista-tags" role="list" aria-label="Technical skills list">
+            <li class="tag">Microsoft Office</li>
+            <li class="tag">Power BI</li>
+            <li class="tag">Canva</li>
+            <li class="tag">VS Code</li>
+            <li class="tag">HTML5</li>
+            <li class="tag">CSS3</li>
+            <li class="tag">JavaScript</li>
+            <li class="tag">Adobe Photoshop</li>
+            <li class="tag">Adobe Lightroom</li>
+            <li class="tag">Adobe After Effects</li>
+            <li class="tag">N8n</li>
+            <li class="tag">Cisco Packet Tracer</li>
+          </ul>
+        </section>
+
+        <section class="secao-idiomas" id="idiomas" aria-labelledby="titulo-idiomas">
+          <h2 id="titulo-idiomas">Languages</h2>
+          <ul class="lista-idiomas" role="list" aria-label="Languages and proficiency levels">
+
+            <li class="card-idioma" tabindex="0" aria-label="Portuguese — Native. Back: Full fluency for reports and meetings.">
+              <div class="idioma-inner" aria-hidden="true">
+                <div class="idioma-frente">
+                  <span class="idioma-nome">Portuguese</span>
+                  <span class="idioma-nivel">Native</span>
+                </div>
+                <div class="idioma-verso">
+                  <span class="idioma-descricao">Full fluency for reports and meetings.</span>
+                </div>
+              </div>
+            </li>
+
+            <li class="card-idioma" tabindex="0" aria-label="English — Intermediate. Back: Technical reading and daily conversation.">
+              <div class="idioma-inner" aria-hidden="true">
+                <div class="idioma-frente">
+                  <span class="idioma-nome">English</span>
+                  <span class="idioma-nivel">Intermediate</span>
+                </div>
+                <div class="idioma-verso">
+                  <span class="idioma-descricao">Technical reading and daily conversation.</span>
+                </div>
+              </div>
+            </li>
+
+            <li class="card-idioma" tabindex="0" aria-label="French — Basic. Back: Simple vocabulary and greetings.">
+              <div class="idioma-inner" aria-hidden="true">
+                <div class="idioma-frente">
+                  <span class="idioma-nome">French</span>
+                  <span class="idioma-nivel">Basic</span>
+                </div>
+                <div class="idioma-verso">
+                  <span class="idioma-descricao">Simple vocabulary and greetings.</span>
+                </div>
+              </div>
+            </li>
+
+          </ul>
+        </section>
+
+      </main>
+
+      <!-- PAINEL DIREITO — versão em inglês -->
+      <aside class="painel-direito" aria-label="Status and timeline">
+
+        <div class="bloco-lateral bloco-status">
+          <span class="status-indicador" aria-label="Available"></span>
+          <div class="status-texto">
+            <strong>Available</strong>
+            <span>for opportunities</span>
+            <small>On-site · Hybrid · Remote</small>
+            <small>Porto Real, Resende, Barra Mansa &amp; Volta Redonda – RJ</small>
+          </div>
+        </div>
+
+        <div class="bloco-lateral bloco-timeline">
+          <h4 class="bloco-titulo">Timeline</h4>
+          <ol class="timeline-pessoal" aria-label="Personal timeline">
+            <li class="timeline-item">
+              <span class="timeline-ano">2021</span>
+              <span class="timeline-desc">First freelance — photography and design</span>
+            </li>
+            <li class="timeline-item">
+              <span class="timeline-ano">2022</span>
+              <span class="timeline-desc">Marketing and social media courses</span>
+            </li>
+            <li class="timeline-item">
+              <span class="timeline-ano">2023</span>
+              <span class="timeline-desc">English, IT, business administration; web and graphic design foundations</span>
+            </li>
+            <li class="timeline-item">
+              <span class="timeline-ano">2024</span>
+              <span class="timeline-desc">Completed High School and Teaching technical degree</span>
+            </li>
+            <li class="timeline-item">
+              <span class="timeline-ano">2025</span>
+              <span class="timeline-desc">First formal job; enrolled in university</span>
+            </li>
+            <li class="timeline-item timeline-item-atual" aria-current="true">
+              <span class="timeline-ano timeline-ano-atual">2026</span>
+              <span class="timeline-desc">Senai courses · AI & automation · Web Development</span>
+            </li>
+          </ol>
+        </div>
+
+        <div class="bloco-lateral bloco-citacao">
+          <blockquote>
+            I don't necessarily have to like my players and associates, but as a leader I must love
+            them. Love is loyalty, love is teamwork, love respects the dignity and individuality.
+            This is the strength of any organization.
+          </blockquote>
+          <cite>Vince Lombardi</cite>
+        </div>
+
+      </aside>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer" id="footer">
+      <nav class="social-links" aria-label="Social and professional profiles">
+        <a href="https://github.com/Liell-Castro" target="_blank" rel="noopener noreferrer" aria-label="Willian's GitHub">GitHub</a>
+        <a href="https://discord.com/users/__konshu__" target="_blank" rel="noopener noreferrer" aria-label="Willian on Discord">Discord</a>
+        <a href="https://linkedin.com/in/liell-castro" target="_blank" rel="noopener noreferrer" aria-label="Willian's LinkedIn">LinkedIn</a>
+        <a href="https://www.reddit.com/user/liell_castro/" target="_blank" rel="noopener noreferrer" aria-label="Willian on Reddit">Reddit</a>
+        <a href="https://www.instagram.com/liell.castro" target="_blank" rel="noopener noreferrer" aria-label="Willian's Instagram">Instagram</a>
+        <a href="https://www.infojobs.com.br/candidate/cv/detail2.aspx" target="_blank" rel="noopener noreferrer" aria-label="Willian on Infojobs">Infojobs</a>
+      </nav>
+
+      <p class="creditos">
+        <span>Porto Real – RJ</span>
+        <span class="creditos-separador" aria-hidden="true">·</span>
+        <span>Updated June 2026</span>
+      </p>
+    </footer>
+
+    <button
+      class="btn-acessibilidade"
+      id="btn-acessibilidade"
+      onclick="togglePainel()"
+      aria-label="Open accessibility menu"
+      aria-controls="painel-acessibilidade"
+      aria-expanded="false"
+    >♿</button>
+
+    <button
+      class="btn-imprimir"
+      onclick="window.print()"
+      aria-label="Save résumé as PDF"
+    >🖨️ Save PDF</button>
+
+    <!-- Shared script — relative path from /en/ to /js/ -->
+    <script src="../js/scripts.js"></script>
+
+  </body>
+</html>

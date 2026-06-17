@@ -1,0 +1,2825 @@
+/* ============================================================
+   style.css — Currículo Willian Gabriel — v7
+   Arquitetura Front-End Sênior | Dark Mode Nativo + Light Mode
+   ============================================================
+
+   ÍNDICE (espelha exatamente a ordem do HTML)
+   ─────────────────────────────────────────────
+   1a. VARIÁVEIS GLOBAIS — Light Mode (:root padrão claro)
+   1b. VARIÁVEIS GLOBAIS — Dark Mode  ([data-tema="dark"] e @media prefers-color-scheme: dark)
+   1c. RAIOS DE BORDA / TRANSIÇÕES / TIPOGRAFIA / LAYOUT (compartilhados)
+   2.  RESET UNIVERSAL
+   3.  BODY E LAYOUT RAIZ
+   4.  ASIDE ESQUERDO — Menu de navegação
+   5.  PAINEL DE ACESSIBILIDADE
+       5a. Estrutura do painel
+       5b. Controles internos
+       5c. Submenu Daltonismo
+       5d. Rodapé do painel / Reset Geral
+   5e. PAINEL DE USABILIDADE
+       5e-i.  Estrutura
+       5e-ii. Alternador de tema
+       5e-iii.Botão Hub e Compartilhar
+       5e-iv. Rodapé / Feedback
+   6.  HEADER — Apresentação pessoal
+   7.  SEÇÕES GERAIS (padrões compartilhados)
+   8.  OBJETIVO PROFISSIONAL
+   9.  EXPERIÊNCIA PROFISSIONAL
+   10. FORMAÇÃO EDUCACIONAL
+   11. CURSOS EXTRACURRICULARES
+   12. COMPETÊNCIAS TÉCNICAS
+   13. IDIOMAS — Cards 3D
+   14. FOOTER
+   15. PAINEL DIREITO — Status, Trajetória, Citação
+   16. BOTÕES FLUTUANTES (Acessibilidade + Imprimir + Usabilidade)
+   17. ACESSIBILIDADE — Recursos dinâmicos
+       17a. OpenDyslexic
+       17b. Guia de leitura
+       17c. Cursor acessível
+       17d. Destacar links
+       17e. Reduzir animações (motion)
+   18. ANIMAÇÕES DE ENTRADA (fade-in-up)
+   19. ALTO CONTRASTE — Bloco isolado
+       (mesmo espelhamento estrutural: seções 1→15)
+   20. MEDIA QUERIES — Responsividade
+       20a. Print
+       20b. max-width: 1100px (esconde painel direito)
+       20c. max-width: 768px  (menu hamburger → bottom nav)
+       20d. max-width: 480px  (ajustes de celular pequeno)
+       20e. min-width: 2560px (4K / telas ultra-largas)
+   ============================================================ */
+
+
+/* ============================================================
+   1a. VARIÁVEIS GLOBAIS — Light Mode
+   Paleta clara: tecnológica, suave, confortável aos olhos.
+   Visual: off-white azulado, acentos em slate/zinc, verde esmeralda.
+
+   Ativada quando: [data-tema="light"] no <html>
+   Também é o fallback para quem não tem prefers-color-scheme escuro.
+
+   CONVENÇÃO SEMÂNTICA (igual ao Dark Mode):
+   --color-bg-*      → fundos de camadas
+   --color-surface-* → superfícies de cards e painéis
+   --color-border-*  → bordas e separadores
+   --color-text-*    → hierarquia tipográfica
+   --color-accent-*  → cor de destaque primária (verde esmeralda)
+   --color-state-*   → estados funcionais (sucesso, aviso, erro)
+   --shadow-*        → sombras por nível de elevação
+   ============================================================ */
+:root,
+[data-tema="light"] {
+
+  /* ── FUNDOS (camadas de profundidade) ── */
+  --color-bg-primary:    #f0f4f8;  /* fundo base da página — azul-cinza suave */
+  --color-bg-secondary:  #e4eaf2;  /* fundo alternativo de seções */
+  --color-bg-aside:      #dde4ef;  /* fundo dos painéis laterais */
+  --color-bg-input:      #eaf0f8;  /* fundo de campos e inputs */
+  --color-bg-reset:      #e2e8f0;  /* Cinza bem claro e limpo */
+  --color-bg-reset-hover:#e6a100;  /* SURPRESA HOVER: Amarelo Ouro */
+  
+/* ── SUPERFÍCIES (cards, blocos, widgets) ── */
+  --color-surface-card:  #ffffff;  /* fundo padrão de cards — branco limpo */
+  --color-surface-hover: #eef3fa;  /* fundo ao hover de cards */
+  --color-surface-panel: #f5f8fc;  /* fundo do painel de acessibilidade */
+  --color-surface-sub:   #eaf0f8;  /* fundo do submenu daltonismo */
+
+  /* ── BORDAS ── */
+  --color-border-soft:   rgba(100, 116, 139, 0.15);  /* separador sutil */
+  --color-border-card:   rgba(100, 116, 139, 0.22);  /* borda de card padrão */
+  --color-border-accent: rgba(16, 185, 129, 0.45);   /* borda de destaque */
+  --color-border-strong: rgba(71, 85, 105, 0.28);    /* borda mais visível */
+  --color-border-reset:  #cbd5e1;                    /* Borda cinza médio */
+
+  /* ── TEXTO (hierarquia de legibilidade) ── */
+  --color-text-primary:   #1e293b;  /* texto principal — Slate 800 */
+  --color-text-secondary: #475569;  /* texto secundário — Slate 600 */
+  --color-text-muted:     #94a3b8;  /* texto atenuado — Slate 400 */
+  --color-text-heading:   #0f172a;  /* títulos — Slate 900 */
+  --color-text-inverted:  #f8fafc;  /* texto sobre fundos escuros */
+  --color-text-reset:     #0f172a;  /* Texto escuro */
+
+  /* ── CORES DE DESTAQUE ── */
+  --color-accent:         #059669;  /* verde esmeralda mais saturado no claro */
+  --color-accent-hover:   #10b981;  /* verde claro ao hover */
+  --color-accent-dim:     rgba(5, 150, 105, 0.10);   /* brilho suave */
+  --color-accent-glow:    rgba(5, 150, 105, 0.20);   /* glow para pulso */
+
+  /* ── ESTADOS FUNCIONAIS ── */
+  --color-state-success:  #16a34a;  /* disponível / ativo */
+  --color-state-warning:  #d97706;  /* atenção */
+  --color-state-error:    #dc2626;  /* erro / desativar */
+  --color-state-info:     #0284c7;  /* informação / link ativo */
+
+  /* ── SOMBRAS (elevação progressiva — mais suaves no claro) ── */
+  --shadow-sm:    0 1px 3px rgba(15, 23, 42, 0.08);
+  --shadow-md:    0 4px 12px rgba(15, 23, 42, 0.12);
+  --shadow-lg:    0 8px 24px rgba(15, 23, 42, 0.16);
+  --shadow-panel: -4px 0 24px rgba(15, 23, 42, 0.14);
+  --shadow-card-hover: 0 8px 32px rgba(5, 150, 105, 0.10);
+  --shadow-Gmenu-hover: rgba(255, 255, 255, 0.05);
+  --shadow-reset-geral: rgba(255, 208, 0, 0.712);
+}
+
+
+/* ============================================================
+   1b. VARIÁVEIS GLOBAIS — Dark Mode
+   Paleta dark: inspirada em Slate/Zinc/Neutral + Emerald.
+   Visual: tecnológico, corporativo, moderno, elegante.
+
+   Ativada quando: [data-tema="dark"] OU prefers-color-scheme: dark
+   (sem preferência explícita o sistema operacional decide)
+   ============================================================ */
+[data-tema="dark"],
+@media (prefers-color-scheme: dark) {
+  :root {
+
+  /* ── FUNDOS (camadas de profundidade) ── */
+  --color-bg-primary:    #0f1117;  /* fundo base da página */
+  --color-bg-secondary:  #161b22;  /* fundo alternativo de seções */
+  --color-bg-aside:      #13161e;  /* fundo dos painéis laterais */
+  --color-bg-input:      #1c2030;  /* fundo de campos e inputs */
+  --color-bg-reset-hover:#ff0;  /* SURPRESA HOVER: Laranja Alerta */
+
+  /* ── SUPERFÍCIES (cards, blocos, widgets) ── */
+  --color-surface-card:  #1a1f2e;  /* fundo padrão de cards */
+  --color-surface-hover: #21283a;  /* fundo ao hover de cards */
+  --color-surface-panel: #12151f;  /* fundo do painel de acessibilidade */
+  --color-surface-sub:   #1e2438;  /* fundo do submenu daltonismo */
+
+  /* ── BORDAS ── */
+  --color-border-soft:   rgba(99, 116, 158, 0.15);   /* separador sutil */
+  --color-border-card:   rgba(99, 116, 158, 0.20);   /* borda de card padrão */
+  --color-border-accent: rgba(52, 211, 153, 0.40);   /* borda de destaque */
+  --color-border-strong: rgba(148, 163, 184, 0.30);  /* borda mais visível */
+  --color-border-reset:  #10b981;                    /* Borda sutil em Verde Esmeralda */
+
+  /* ── TEXTO (hierarquia de legibilidade) ── */
+  --color-text-primary:   #e2e8f0;  /* texto principal — alta legibilidade */
+  --color-text-secondary: #94a3b8;  /* texto secundário — informações de apoio */
+  --color-text-muted:     #64748b;  /* texto atenuado — metadados e legendas */
+  --color-text-heading:   #f1f5f9;  /* títulos e headings */
+  --color-text-inverted:  #0f1117;  /* texto sobre fundos claros */
+  --color-text-reset:     #;  /* Texto branco */
+  --color-text-reset-hover:#; /* Texto branco no hover */
+
+  /* ── CORES DE DESTAQUE ── */
+  --color-accent:         #34d399;  /* verde esmeralda — identidade visual */
+  --color-accent-hover:   #6ee7b7;  /* verde claro ao hover */
+  --color-accent-dim:     rgba(52, 211, 153, 0.12); /* brilho suave */
+  --color-accent-glow:    rgba(52, 211, 153, 0.25); /* glow para pulso */
+
+  /* ── ESTADOS FUNCIONAIS ── */
+  --color-state-success:  #22c55e;  /* disponível / ativo */
+  --color-state-warning:  #f59e0b;  /* atenção */
+  --color-state-error:    #ef4444;  /* erro / desativar */
+  --color-state-info:     #38bdf8;  /* informação / link ativo */
+
+  /* ── SOMBRAS (elevação progressiva) ── */
+  --shadow-sm:    0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md:    0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-lg:    0 8px 24px rgba(0, 0, 0, 0.6);
+  --shadow-panel: -4px 0 24px rgba(0, 0, 0, 0.7);
+  --shadow-card-hover: 0 8px 32px rgba(52, 211, 153, 0.08);
+  --shadow-Gmenu-hover: rgba(255, 255, 255, 0.05);
+  --shadow-reset-geral: rgba(219, 99, 0, 0.575);
+  }
+}
+
+/* Dark mode com seletor direto (tem maior especificidade que @media) */
+[data-tema="dark"] {
+ /* ── FUNDOS (camadas de profundidade) ── */
+  --color-bg-primary:    #0f1117;  /* fundo base da página */
+  --color-bg-secondary:  #161b22;  /* fundo alternativo de seções */
+  --color-bg-aside:      #13161e;  /* fundo dos painéis laterais */
+  --color-bg-input:      #1c2030;  /* fundo de campos e inputs */
+  --color-bg-reset-hover:#E65C00;  /* SURPRESA HOVER: Laranja Alerta */
+
+  /* ── SUPERFÍCIES (cards, blocos, widgets) ── */
+  --color-surface-card:  #1a1f2e;  /* fundo padrão de cards */
+  --color-surface-hover: #21283a;  /* fundo ao hover de cards */
+  --color-surface-panel: #12151f;  /* fundo do painel de acessibilidade */
+  --color-surface-sub:   #1e2438;  /* fundo do submenu daltonismo */
+
+  /* ── BORDAS ── */
+  --color-border-soft:   rgba(99, 116, 158, 0.15);   /* separador sutil */
+  --color-border-card:   rgba(99, 116, 158, 0.20);   /* borda de card padrão */
+  --color-border-accent: rgba(52, 211, 153, 0.40);   /* borda de destaque */
+  --color-border-strong: rgba(148, 163, 184, 0.30);  /* borda mais visível */
+  --color-border-reset-hover:  #ffe600;                    /* Borda sutil em Verde Esmeralda */
+
+  /* ── TEXTO (hierarquia de legibilidade) ── */
+  --color-text-primary:   #e2e8f0;  /* texto principal — alta legibilidade */
+  --color-text-secondary: #94a3b8;  /* texto secundário — informações de apoio */
+  --color-text-muted:     #64748b;  /* texto atenuado — metadados e legendas */
+  --color-text-heading:   #f1f5f9;  /* títulos e headings */
+  --color-text-inverted:  #0f1117;  /* texto sobre fundos claros */
+  --color-text-reset-hover:#ff0; /* Texto branco no hover */
+
+  /* ── CORES DE DESTAQUE ── */
+  --color-accent:         #34d399;  /* verde esmeralda — identidade visual */
+  --color-accent-hover:   #6ee7b7;  /* verde claro ao hover */
+  --color-accent-dim:     rgba(52, 211, 153, 0.12); /* brilho suave */
+  --color-accent-glow:    rgba(52, 211, 153, 0.25); /* glow para pulso */
+
+  /* ── ESTADOS FUNCIONAIS ── */
+  --color-state-success:  #22c55e;  /* disponível / ativo */
+  --color-state-warning:  #f59e0b;  /* atenção */
+  --color-state-error:    #ef4444;  /* erro / desativar */
+  --color-state-info:     #38bdf8;  /* informação / link ativo */
+
+  /* ── SOMBRAS (elevação progressiva) ── */
+  --shadow-sm:    0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md:    0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-lg:    0 8px 24px rgba(0, 0, 0, 0.6);
+  --shadow-panel: -4px 0 24px rgba(0, 0, 0, 0.7);
+  --shadow-card-hover: 0 8px 32px rgba(52, 211, 153, 0.08);
+  --shadow-Gmenu-hover: rgba(255, 255, 255, 0.05);
+  --shadow-reset-geral: rgba(255, 100, 0, 0.712);
+}
+
+
+/* ============================================================
+   1c. RAIOS DE BORDA / TRANSIÇÕES / TIPOGRAFIA / LAYOUT
+   Compartilhados entre todos os temas — não mudam com o tema.
+   ============================================================ */
+:root {
+
+  /* ── RAIOS DE BORDA ── */
+  --radius-sm:  6px;
+  --radius-md:  10px;
+  --radius-lg:  14px;
+  --radius-pill: 999px;
+
+  /* ── TRANSIÇÕES ── */
+  --transition-fast:   0.15s ease;
+  --transition-base:   0.3s ease;
+  --transition-slow:   0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ── TIPOGRAFIA ── */
+  --fonte-titulo: "DM Serif Display", Georgia, serif;
+  --fonte-corpo:  "DM Sans", system-ui, -apple-system, sans-serif;
+
+  /* ── ESPAÇAMENTOS DE LAYOUT ── */
+  --nav-width:         220px;   /* largura do menu lateral esquerdo */
+  --painel-dir-width:  260px;   /* largura do painel direito */
+  --painel-acess-width: 300px;  /* largura do painel de acessibilidade */
+  --max-content-width: 860px;   /* largura máxima do conteúdo central */
+}
+
+
+/* ============================================================
+   2. RESET UNIVERSAL
+   Garante consistência entre navegadores.
+   box-sizing: border-box inclui padding/border no cálculo de width.
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* font-size base: controlada via JS para zoom de texto */
+  font-size: 16px;
+}
+
+/* Remove estilos padrão de listas apenas onde necessário (via classe) */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+/* Remove sublinhado padrão de links — cada componente redefine conforme necessário */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Botões herdam tipografia do documento */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* Endereço não itálico por padrão */
+address {
+  font-style: normal;
+}
+
+/* Cursores Personalizados
+  1. Cursor Padrão (Para todo o site)
+html, body {
+    O ponto (0,0) indica o topo esquerdo da imagem como o local do clique
+  cursor: url('../assets/cursors/default.png') 0 0, default;
+}
+
+  2. Cursor de Link/Botão (Elementos clicáveis) 
+a, 
+button, 
+[role="button"],
+input[type="submit"],
+input[type="button"],
+.clicavel {
+    O ponto (12, 0) centraliza o clique no topo, comum em cursores de "mãozinha"
+  cursor: url('../assets/cursors/pointer.png') 12 0, pointer;
+}
+
+  3. Cursor de Texto (Campos de escrita)
+p,
+span,
+h1, h2, h3, h4, h5, h6,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+    O ponto (8, 8) centraliza o clique no meio da barra de texto "I-beam"
+  cursor: url('../assets/Cursors/text.png') 8 8, text;
+} */
+
+/* ============================================================
+   3. BODY E LAYOUT RAIZ
+
+   ESTRATÉGIA DE LAYOUT:
+   O wrapper usa CSS Grid de três colunas para:
+     [aside-esquerdo fixo] [conteudo-central rolável] [painel-direito fixo]
+
+   Isso resolve o bug do v6 onde `margin-left` era alterado via JS
+   para "empurrar" o conteúdo ao abrir o painel, quebrando o
+   `margin: 0 auto`. Agora o layout é estável por design.
+
+   O painel de ACESSIBILIDADE (lado direito) é fixed/absolute e
+   sobrepõe o layout — não faz parte do grid.
+   ============================================================ */
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--fonte-corpo);
+  font-size: 1rem;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* Wrapper de grid: centraliza o conteúdo e organiza as três colunas */
+.layout-wrapper {
+  display: grid;
+  grid-template-columns: var(--nav-width) 1fr var(--painel-dir-width);
+  grid-template-areas: "nav-esq conteudo painel-dir";
+  max-width: calc(var(--nav-width) + var(--max-content-width) + var(--painel-dir-width) + 80px);
+  margin: 0 auto;
+  min-height: 100vh;
+  align-items: start;
+}
+
+
+/* ============================================================
+   4. ASIDE ESQUERDO — Menu de navegação
+   ============================================================ */
+.aside-esquerdo {
+  grid-area: nav-esq;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 40px 24px;
+  border-right: 1px solid var(--color-border-soft);
+  gap: 24px;
+}
+
+/* ── Menu de navegação ── */
+.menu-nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.btn-nav {
+  font-family: var(--fonte-titulo);
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  text-align: left;
+  width: 100%;
+  transition: all var(--transition-base);
+}
+
+.btn-nav:hover {
+  color: var(--color-accent);
+  background-color: var(--color-accent-dim);
+  border-color: var(--color-border-accent);
+  padding-left: 16px;
+}
+
+/* Estado ativo: seção visível no scroll */
+.btn-nav.nav-ativo {
+  color: var(--color-accent);
+  font-weight: 500;
+  border-left: 2px solid var(--color-accent);
+  padding-left: 14px;
+  background-color: var(--color-accent-dim);
+}
+
+/* ── Seletor de idioma ── */
+.seletor-idioma {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border-soft);
+}
+
+.lang-btn {
+  font-family: var(--fonte-corpo);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color var(--transition-fast);
+}
+
+.lang-btn:hover {
+  color: var(--color-accent);
+}
+
+.lang-btn.lang-ativo {
+  color: var(--color-accent);
+}
+
+.lang-separador {
+  color: var(--color-border-strong);
+  font-size: 0.75rem;
+}
+
+
+/* ============================================================
+   5. PAINEL DE ACESSIBILIDADE
+
+   ESTRUTURA:
+   - Posicionado como fixed, desliza da direita com CSS transform
+   - Não usa margin-left no main — elimina o bug do v6
+   - Abre: transform: translateX(0)
+   - Fecha: transform: translateX(100%)
+   ============================================================ */
+
+/* 5a. Estrutura do painel */
+.painel-acessibilidade {
+  position: fixed;
+  top: 0;
+  right: 0;
+
+  width: var(--painel-acess-width);
+  height: 100vh;
+  background-color: var(--color-surface-panel);
+  box-shadow: var(--shadow-panel);
+  padding: 24px;
+  border-left: 1px solid var(--color-border-card);
+
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+
+  /* ESTADO FECHADO: fora da tela à direita */
+  transform: translateX(100%);
+  transition: all var(--transition-slow);
+  z-index: 9999;
+
+  /* Permite rolagem interna sem scrollbar visível */
+  overflow: hidden;
+  isolation: isolate;
+  will-change: transform;
+}
+
+/* ESTADO ABERTO — classe adicionada via JS */
+.painel-acessibilidade.acessibilidade-aberto {
+  right: 0;
+  transform: translateX(0%);
+}
+
+/* Área interna com scroll independente */
+.painel-topo {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border-soft) transparent;
+}
+
+.painel-topo::-webkit-scrollbar { width: 4px; }
+.painel-topo::-webkit-scrollbar-track { background: transparent; }
+.painel-topo::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  border-radius: var(--radius-pill);
+}
+
+/* Cabeçalho do painel */
+.painel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.painel-header h3 {
+  font-family: var(--fonte-titulo);
+  font-size: 1.1rem;
+  color: var(--color-text-heading);
+}
+
+.btn-fechar {
+  font-size: 1.2rem;
+  color: var(--color-text-muted);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-base), background-color var(--transition-base);
+}
+
+.btn-fechar:hover {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-hover);
+}
+
+/* Lista de controles */
+.topicos-acessibilidade {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* 5b. Controles internos */
+.item-acess {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+/* Grupo de botões A- / ↺ / A+ */
+.botoes-grupo {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.botoes-grupo button {
+  background-color: var(--color-bg-input);
+  border: 1px solid var(--color-border-card);
+  color: var(--color-text-primary);
+  padding: 4px 10px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+  width: auto;
+}
+
+.botoes-grupo button:hover {
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-accent);
+}
+
+/* Botão de opção (toggle completo) */
+.btn-opcao {
+  background-color: var(--color-bg-input);
+  border: 1px solid var(--color-border-card);
+  color: var(--color-text-primary);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.825rem;
+  text-align: left;
+  width: 100%;
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.btn-opcao:hover {
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-border-accent);
+}
+
+/* Estado ATIVO dos botões de opção — via JS, aria-pressed="true" */
+.btn-opcao[aria-pressed="true"],
+.btn-opcao.opcao-ativa {
+  background-color: var(--color-accent-dim);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  font-weight: 500;
+}
+.btn-copy {
+  cursor: copy;
+}
+
+/* ── Botão Reset (↺) — oculto quando no padrão ── */
+.btn-reset {
+  width: 0 !important;
+  min-width: 0 !important;
+  padding: 4px 0 !important;
+  opacity: 0;
+  overflow: hidden;
+  background-color: var(--color-bg-input) !important;
+  border: 1px solid var(--color-border-card) !important;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+  font-weight: bold;
+  font-size: 0.8rem;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+/* Estado visível — classe adicionada via JS */
+.btn-reset.visivel {
+  width: 32px !important;
+  min-width: 32px !important;
+  padding: 4px 6px !important;
+  opacity: 1;
+}
+
+.btn-reset:hover {
+  background-color: var(--color-bg-reset-hover) !important;
+  border-color: var(--color-border-reset-hover) !important;
+}
+
+/* Separador interno */
+.divisor-painel {
+  border: none;
+  border-top: 1px solid var(--color-border-soft);
+  margin: 14px 0;
+}
+
+/* 5c. Submenu Daltonismo */
+.grupo-daltonismo {
+  position: relative;
+  width: 100%;
+}
+
+.submenu-daltonismo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background-color: var(--color-surface-sub);
+  border: 1px solid var(--color-border-card);
+  border-radius: var(--radius-sm);
+  padding: 0 6px;
+
+  /* Estado fechado: altura zero com transição suave */
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transition:
+    max-height 0.3s ease,
+    opacity 0.25s ease,
+    visibility 0.3s ease,
+    padding 0.25s ease;
+  margin-top: 4px;
+}
+
+/* Abrir via hover (desktop) ou classe .submenu-visivel (JS/touch) */
+.grupo-daltonismo:hover .submenu-daltonismo,
+.submenu-daltonismo.submenu-visivel {
+  max-height: 420px;
+  opacity: 1;
+  pointer-events: auto;
+  padding: 8px 6px;
+}
+
+.submenu-titulo {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin: 6px 0 2px 4px;
+}
+
+/* Botões individuais do submenu */
+.btn-sub {
+  background: var(--color-bg-input);
+  border: 1px solid var(--color-border-soft);
+  color: var(--color-text-secondary);
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  text-align: left;
+  width: 100%;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.btn-sub:hover {
+  background-color: var(--color-surface-hover);
+  color: var(--color-text-primary);
+}
+
+/* Filtro ativo — realce visual claro */
+.btn-sub.btn-sub-ativo,
+.btn-sub[aria-pressed="true"] {
+  font-weight: 600;
+  background-color: rgba(56, 189, 248, 0.12);
+  color: var(--color-state-info);
+  border-color: rgba(56, 189, 248, 0.35);
+}
+
+/* Botão desativar — vermelho sutil */
+.btn-sub-desativar {
+  background-color: rgba(239, 68, 68, 0.08);
+  color: var(--color-state-error);
+  border-color: rgba(239, 68, 68, 0.25);
+  margin-top: 4px;
+}
+
+.btn-sub-desativar:hover {
+  background-color: rgba(239, 68, 68, 0.18);
+}
+
+/* 5d. Rodapé do painel / Feedback */
+.painel-rodape {
+  margin-top: auto;
+  padding-top: 4px;
+}
+
+.painel-rodape p {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  margin: 0 0 10px;
+}
+
+/* Botão de feedback PainelAcess - FontP / AnimF */
+ .btn-feedback {
+  display: block;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.825rem;
+  font-weight: 500;
+  text-align: center;
+    border: 1px solid var(--color-border-accent);
+  background-color: var(--color-accent-dim);
+  color: var(--color-accent);
+  /* margin-bottom: 20px; */
+  animation: aura-pulsante 2.5s ease-in-out infinite;
+  transition: all var(--transition-base);
+}
+
+.btn-feedback:hover {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-text-inverted);
+  transform: translateY(-4px);
+  box-shadow: 0 0 20px var(--color-accent-glow); 
+  animation-play-state: paused;
+}
+
+/* Botão de Reset Geral — rodapé do painel de acessibilidade */
+.btn-reset-geral {
+  display: block;
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-card);
+  background-color: var(--color-bg-input);
+  color: var(--color-text-primary);
+  font-size: 0.825rem;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    background-color var(--transition-base),
+    border-color var(--transition-base),
+    color var(--transition-base),
+    transform var(--transition-slow);
+}
+
+.btn-reset-geral:hover {
+  background-color: var(--color-bg-reset-hover);
+  border-color:var(--color-border-reset-hover);
+  color: var(--color-text-reset-hover);
+  box-shadow: var(--shadow-reset-geral);
+  transform: translateY(-1px);
+}
+
+
+/* ============================================================
+   5e. PAINEL DE USABILIDADE — Nova Central do Site
+
+   Mesmo padrão visual e de comportamento do painel de acessibilidade.
+   Desliza da direita, abre sobre o conteúdo.
+   z-index: 8500 — abaixo do painel de acessibilidade (9000)
+   mas acima de todo conteúdo de layout.
+   ============================================================ */
+
+/* 5e-i. Estrutura do painel de usabilidade */
+.painel-usabilidade {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--painel-acess-width);
+  height: 100vh;
+  background-color: var(--color-surface-panel);
+  box-shadow: var(--shadow-panel);
+  border-right: 1px solid var(--color-border-card);
+
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+
+  /* ESTADO FECHADO: fora da tela à esquerda */
+  transform: translateX(-100%);
+  transition:
+    transform var(--transition-slow),
+    background-color var(--transition-slow);
+  z-index: 8500;
+  isolation: isolate;
+
+  overflow: hidden;
+  will-change: transform;
+}
+
+/* ESTADO ABERTO — classe adicionada via JS */
+.painel-usabilidade.usabilidade-aberto {
+  left: 0;
+  transform: translateX(0);
+}
+
+body:has(.painel-usabilidade.usabilidade-aberto) .btn-imprimir {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* 5e-ii. Alternador de Tema — Claro / Sistema / Escuro */
+.item-acess-tema {
+  /* Sobrescreve o layout padrão de item-acess para acomodar 3 botões */
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.botoes-tema {
+  width: 100%;
+  display: flex;
+  gap: 6px;
+}
+
+.btn-tema {
+  flex: 1;
+  background-color: var(--color-bg-input);
+  border: 1px solid var(--color-border-card);
+  color: var(--color-text-secondary);
+  padding: 7px 4px;
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.btn-tema:hover {
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-border-accent);
+}
+
+/* Estado ativo do botão de tema */
+.btn-tema[aria-pressed="true"],
+.btn-tema.tema-ativo {
+  background-color: var(--color-accent-dim);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* 5e-iii. Botão Hub de Portfólio */
+.btn-hub {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: space-between;
+  text-decoration: none;
+  cursor: not-allowed !important;
+  opacity: 0.7;
+  transition:
+  transform: 0.2s, opacity 0.2s;
+}
+
+.btn-hub:hover {
+  opacity: 0.85;
+}
+
+.btn-hub-bloqueado {
+  animation: tremerBloqueio 0.4s ease-in-out;
+  border-color: #ff4d4d !important; /* Opcional: pisca uma borda vermelha sutil */
+}
+
+/* Badge "em breve" — pílula discreta */
+.badge-em-breve {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-state-info);
+  background-color: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: var(--radius-pill);
+  padding: 2px 7px;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   6. HEADER — Apresentação pessoal
+   ============================================================ */
+.secao-header {
+  padding-bottom: 48px;
+  margin-bottom: 52px;
+  border-bottom: 1px solid var(--color-border-soft);
+  position: relative;
+
+  /* Animação de entrada — ver seção 18 */
+  animation: fade-in-up 0.6s ease both;
+}
+
+/* Acento colorido antes do nome */
+.header-acento {
+  width: 48px;
+  height: 3px;
+  background: var(--color-accent);
+  border-radius: var(--radius-pill);
+  margin-bottom: 20px;
+}
+
+.secao-header h1 {
+  font-family: var(--fonte-titulo);
+  font-size: clamp(2rem, 5vw, 3.2rem); /* responsivo via clamp */
+  color: var(--color-text-heading);
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+.subtitulo {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+}
+
+/* Dados de contato */
+.contato {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  margin-top: 16px;
+}
+
+.contato-item {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Links de contato com sublinhado deslizante */
+.contato-item a {
+  text-decoration: none;
+  color: var(--color-text-secondary);
+  position: relative;
+  transition: color var(--transition-base);
+}
+
+.contato-item a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2.0px;
+  background-color: var(--color-accent);
+  border-radius: var(--radius-pill);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform var(--transition-base);
+}
+
+.contato-item a:hover {
+  color: var(--color-accent);
+}
+
+.contato-item a:hover::after {
+  transform: scaleX(1);
+}
+
+
+/* ============================================================
+   7. SEÇÕES GERAIS (padrões compartilhados)
+   ============================================================ */
+.conteudo-principal {
+  margin: 0 auto;
+  padding: 40px 43px 60px;
+  position: relative;
+  grid-area: conteudo;
+  max-width: var(--max-content-width);
+  transition: transform var(--transition-slow);
+  transform: translateX(2%)
+}
+
+/* Leve deslocamento ao abrir painel de acessibilidade */
+.conteudo-principal.usabilidade-conteudo-aberto {
+  transform: translateX(7%);
+  transition: var(--transition-slow);
+}
+
+.conteudo-principal.acessibilidade-conteudo-aberto {
+  transform: translateX(-2%);
+  transition: var(--transition-slow);
+}
+
+body.global-acessibilidade-aberta .painel-direito {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+
+
+/* Espaçamento entre seções */
+section {
+  margin-bottom: 52px;
+}
+
+/* Títulos de seção (H2) com barra lateral em acento */
+section h2 {
+  font-family: var(--fonte-titulo);
+  font-size: 1.35rem;
+  color: var(--color-text-heading);
+  padding-left: 14px;
+  margin-bottom: 28px;
+
+  /* Barra lateral usando border-left — mais limpo que ::before */
+  border-left: 3px solid var(--color-accent);
+  line-height: 1.3;
+  position: relative;
+
+  /* Efeito de brilho deslizante no hover */
+  display: inline-block;
+  overflow: hidden;
+}
+
+/* Preenchimento deslizante no hover do título */
+section h2::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-accent-dim);
+  transform: translateX(-100%);
+  transition: all var(--transition-slow);
+  z-index: -1;
+}
+
+section h2:hover::before {
+  transform: translateX(100%);
+}
+
+
+/* ============================================================
+   8. OBJETIVO PROFISSIONAL
+   ============================================================ */
+.secao-objetivo {
+  animation: fade-in-up 0.7s ease 0.1s both;
+}
+
+.secao-objetivo p {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  font-weight: 300;
+  max-width: 660px;
+  line-height: 1.8;
+}
+
+
+/* ============================================================
+   9. EXPERIÊNCIA PROFISSIONAL
+   Cards em coluna com elevação suave no hover.
+   ============================================================ */
+.lista-experiencias {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card-experiencia {
+  background-color: var(--color-surface-card);
+  border: 1px solid var(--color-border-card);
+  border-radius: var(--radius-md);
+  padding: 20px 24px;
+  transition:
+    border-color var(--transition-base),
+    box-shadow var(--transition-base),
+    transform var(--transition-base);
+}
+
+.card-experiencia:hover {
+  border-color: var(--color-border-accent);
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+/* Topo do card: cargo+empresa à esquerda, período à direita */
+.card-cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  margin-bottom: 10px;
+}
+
+.card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.card-cargo {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--color-text-heading);
+}
+
+.card-empresa {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+.card-periodo {
+  font-size: 0.775rem;
+  color: var(--color-text-muted);
+  background-color: var(--color-bg-input);
+  border: 1px solid var(--color-border-soft);
+  padding: 2px 10px;
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+  align-self: flex-start;
+}
+
+.card-experiencia p {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+}
+
+
+/* ============================================================
+   10. FORMAÇÃO EDUCACIONAL
+   Grade com card de destaque para a formação principal.
+   ============================================================ */
+.grade-formacao {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* Card de formação padrão */
+.card-formacao {
+  background-color: var(--color-surface-card);
+  border: 1px solid var(--color-border-card);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  transition:
+    border-color var(--transition-base),
+    transform var(--transition-base);
+}
+
+.card-formacao:hover {
+  border-color: var(--color-border-accent);
+  transform: translateY(-2px);
+}
+
+/* Card de destaque: ocupa toda a largura da grade */
+.card-formacao-destaque {
+  grid-column: 1 / -1;
+  border-color: var(--color-border-accent);
+  background-color: var(--color-accent-dim);
+}
+
+.formacao-icone {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.formacao-conteudo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.formacao-titulo {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--color-text-heading);
+}
+
+.formacao-instituicao {
+  font-size: 0.825rem;
+  color: var(--color-text-secondary);
+}
+
+.formacao-periodo {
+  font-size: 0.775rem;
+  color: var(--color-text-muted);
+  margin-top: 4px;
+}
+
+/* Período ativo: destaque em verde */
+.formacao-periodo-ativo {
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+
+/* ============================================================
+   11. CURSOS EXTRACURRICULARES
+   Grade CSS auto-ajustável com minmax.
+   ============================================================ */
+.grade-cursos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.card-curso {
+  background-color: var(--color-surface-card);
+  border: 1px solid var(--color-border-card);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  transition:
+    border-color var(--transition-base),
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.card-curso:hover {
+  border-color: var(--color-border-accent);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.curso-nome {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--color-text-heading);
+  line-height: 1.4;
+}
+
+.curso-info {
+  font-size: 0.775rem;
+  color: var(--color-text-muted);
+}
+
+
+/* ============================================================
+   12. COMPETÊNCIAS TÉCNICAS — Tags
+   ============================================================ */
+.lista-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tag {
+  background-color: var(--color-surface-card);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border-card);
+  padding: 5px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 0.825rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition:
+    background-color var(--transition-base),
+    color var(--transition-base),
+    border-color var(--transition-base),
+    transform var(--transition-fast);
+}
+
+.tag:hover {
+  background-color: var(--color-accent);
+  color: var(--color-text-inverted);
+  border-color: var(--color-accent);
+  transform: translateY(-2px);
+}
+
+
+/* ============================================================
+   13. IDIOMAS — Cards 3D com flip no hover
+   COMO FUNCIONA:
+   - perspective no .card-idioma cria profundidade 3D
+   - .idioma-inner rotaciona em 3D (rotateY 180°)
+   - backface-visibility: hidden oculta a face traseira
+   - .idioma-verso tem transform: rotateY(180deg) inicial
+     para ficar "invertido" até o flip acontecer
+   ============================================================ */
+.lista-idiomas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.card-idioma {
+  width: 150px;
+  height: 96px;
+  perspective: 1000px;
+  cursor: default;
+}
+
+/* Contêiner 3D que rotaciona */
+.idioma-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-md);
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+/* Rotação no hover */
+.card-idioma:hover .idioma-inner,
+.card-idioma:focus .idioma-inner {
+  transform: rotateY(180deg);
+}
+
+/* Frente e verso compartilham posicionamento */
+.idioma-frente,
+.idioma-verso {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-md);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  /* Ocultar face traseira durante rotação */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  /* Garante que a renderização 3D seja preservada corretamente */
+  will-change: transform;
+}
+
+.idioma-frente {
+  background-color: var(--color-surface-card);
+  border: 1px solid var(--color-border-card);
+}
+
+/* O verso começa virado 180°, fica visível após flip */
+.idioma-verso {
+  background-color: var(--color-accent-dim);
+  border: 1px solid var(--color-border-accent);
+  transform: rotateY(180deg);
+}
+
+.idioma-nome {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--color-text-heading);
+  margin-bottom: 4px;
+}
+
+.idioma-nivel {
+  font-size: 0.775rem;
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+.idioma-descricao {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+
+
+/* ============================================================
+   14. FOOTER
+   ============================================================ */
+.footer {
+  background-color: var(--color-bg-secondary);
+  border-top: 1px solid var(--color-border-soft);
+  padding: 36px 24px;
+  text-align: center;
+  margin-top: auto;
+  z-index: 1;
+}
+
+/* Redes sociais com efeito pop */
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.social-links a {
+  font-family: var(--fonte-titulo);
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  display: inline-block;
+  transition:
+    color var(--transition-base),
+    transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.social-links a:hover {
+  color: var(--color-accent);
+  transform: translateY(-4px) scale(1.1);
+}
+
+
+@keyframes aura-pulsante {
+  0%, 100% { box-shadow: 0 0 0 0 var(--color-accent-glow); }
+  50%       { box-shadow: 0 0 12px 4px var(--color-accent-glow); }
+}
+
+.creditos {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.creditos-separador {
+  color: var(--color-border-strong);
+}
+
+
+/* ============================================================
+   15. PAINEL DIREITO — Status, Trajetória e Citação
+   ============================================================ */
+.painel-direito {
+  grid-area: painel-dir;
+  position: sticky;
+  top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 32px 16px 32px 20px;
+  height: calc(100vh - 64px);
+  max-height: calc(100vh - 64px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  z-index: auto;
+}
+
+.painel-direito::-webkit-scrollbar { display: none; }
+
+
+
+/* Bloco base dos widgets laterais */
+.bloco-lateral {
+  background-color: var(--color-surface-card);
+  border: 1px solid var(--color-border-card);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  transition:
+    border-color var(--transition-base),
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.bloco-lateral:hover {
+  border-color: var(--color-border-strong);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+/* BLOCO 1 — Status */
+.bloco-status {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.bloco-status .status-texto strong {
+  display: inline-block;
+  transform-origin: left;
+  transition:
+    transform var(--transition-base),
+    color var(--transition-base);
+}
+
+.bloco-status:hover .status-texto strong {
+  transform: scale(1.10);
+}
+
+.bloco-status .status-texto span {
+  display: inline-block;
+  transform-origin: left;
+  transition: transform var(--transition-base);
+}
+
+.bloco-status:hover .status-texto span {
+  transform: scale(1.08);
+}
+
+small {
+  display: inline-block;
+  transition: transform var(--transition-base);
+}
+
+small:hover {
+  transform: scale(1.05);
+}
+
+/* Ponto verde pulsante */
+.status-indicador {
+  width: 9px;
+  height: 9px;
+  min-width: 9px;
+  background-color: var(--color-state-success);
+  border-radius: 50%;
+  margin-top: 7px;
+  animation: piscar 2.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes piscar {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+    box-shadow: 0 0 6px 3px rgba(34, 197, 94, 0.45);
+  }
+}
+
+.status-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.status-texto strong {
+  font-size: 0.875rem;
+  color: var(--color-state-success);
+  font-weight: 600;
+}
+
+.status-texto span {
+  font-size: 0.775rem;
+  color: var(--color-text-primary);
+}
+
+.status-texto small {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  line-height: 1.45;
+}
+
+/* BLOCO 2 — Timeline pessoal */
+.bloco-titulo {
+  font-family: var(--fonte-titulo);
+  font-size: 0.9rem;
+  color: var(--color-text-heading);
+  margin-bottom: 12px;
+  display: block;
+  transform-origin: left;
+  transition: all 0.3s ease;
+
+}
+
+.bloco-lateral:hover .bloco-titulo {
+  transform: scale(1.1);
+}
+
+.timeline-pessoal {
+  list-style: none;
+  position: relative;
+  padding-left: 16px;
+}
+
+/* Linha vertical da timeline */
+.timeline-pessoal::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  bottom: 4px;
+  width: 1.5px;
+  background: var(--color-border-card);
+}
+
+.timeline-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  cursor: text;
+  transition: all var(--transition-base);
+}
+
+.timeline-item:hover .timeline-ano {
+  color: var(--color-accent);
+  transform: scale(1.1);
+  transform-origin: left;
+  transition: all var(--transition-base);
+}
+
+.timeline-item:hover .timeline-desc {
+  transform: translateX(2px);
+  transform-origin: left;
+  transition: all var(--transition-base);
+}
+
+/* Ponto na linha do tempo */
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -14px;
+  top: 5px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-border-strong);
+  border: 2px solid var(--color-bg-secondary);
+  z-index: 500;
+  transition:
+    transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    background-color var(--transition-base);
+}
+
+.timeline-item:hover::before {
+  transform: scale(1.6);
+  background: var(--color-accent);
+  filter: brightness(--color-border-accent);
+}
+
+/* Item atual — destaque */
+.timeline-item-atual::before {
+  background: var(--color-accent);
+  filter: brightness(--color-border-accent);
+}
+
+.timeline-ano {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  line-height: 1;
+  transition: color var(--transition-fast);
+}
+
+.timeline-ano-atual {
+  color: var(--color-accent);
+}
+
+.timeline-desc {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
+/* BLOCO 3 — Citação */
+.bloco-citacao blockquote {
+  font-size: 0.78rem;
+  font-style: italic;
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+  margin-bottom: 8px;
+  position: relative;
+  padding-left: 16px;
+  transition: transform var(--transition-base);
+}
+
+.bloco-citacao:hover blockquote {
+  transform: scale(1.02);
+  transform-origin: left;
+}
+
+/* Aspas decorativas */
+.bloco-citacao blockquote::before {
+  content: '"';
+  position: absolute;
+  left: 0;
+  top: -4px;
+  font-family: var(--fonte-titulo);
+  font-size: 1.8rem;
+  color: var(--color-accent);
+  line-height: 1;
+  font-style: normal;
+}
+
+.bloco-citacao cite {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  font-style: normal;
+  display: block;
+  text-align: right;
+  transform-origin: right;
+  transition: transform var(--transition-slow);
+}
+
+.bloco-citacao:hover cite {
+  transform: translateX(-60px);
+}
+
+
+/* ============================================================
+   16. BOTÕES FLUTUANTES
+
+   ESTRATÉGIA DE POSICIONAMENTO:
+   - .btn-acessibilidade: canto inferior direito (fixed)
+   - .btn-imprimir: canto inferior esquerdo (fixed)
+   Ambos com z-index definido para não conflitar com o painel.
+   ============================================================ */
+
+/* Botão ♿ acessibilidade */
+.btn-acessibilidade {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 48px;
+  height: 48px;
+  background-color: var(--color-surface-card);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-card);
+  border-radius: 50%;
+  font-size: 1.3rem;
+  box-shadow: var(--shadow-md);
+  z-index: 2000;
+  transition:
+    transform var(--transition-base),
+    opacity var(--transition-base),
+    background-color var(--transition-fast);
+}
+
+.btn-acessibilidade:hover {
+  transform: scale(1.1);
+  background-color: var(--color-accent-dim);
+  border-color: var(--color-accent);
+}
+
+/* Ocultar quando o painel está aberto */
+.btn-acessibilidade.btn-acessibilidade-aberto {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.8);
+}
+
+#btn-acessibilidade.acessibilidade-conteudo-aberto {
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition-fast);
+}
+
+/* ==========================================================================
+   HEADER DO ASIDE (O Trono do Botão de Usabilidade)
+   ========================================================================== */
+.header-aside {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start; /* Alinha o botão à esquerda do cabeçalho */
+  align-items: center;
+  padding-bottom: 16px;        /* Cria uma separação elegante para o menu de baixo */
+  border-bottom: 1px solid var(--color-border-soft); /* Opcional: uma linha divisória muito subtil */
+}
+
+/* ==========================================================================
+   BOTÃO DE USABILIDADE (Ultra Minimalista com Texto/Emoji)
+   ========================================================================== */
+.btn-usabilidade {
+  top: 0;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  box-shadow: var(--shadow-Gmenu-hover);
+  padding: 10px;
+  cursor: pointer;
+  
+  /* Centraliza o caractere/emoji perfeitamente */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Tamanho do ícone */
+  font-size: 1.8rem; 
+  /* Cor do ícone (se usar o ☰, ele vai respeitar essa cor) */
+  color: var(--color-text-primary); 
+  
+  border-radius: var(--radius-sm, 8px);
+  transition: all 0.2s ease;
+}
+
+/* Efeito Hover simples */
+.btn-usabilidade:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--color-primary, #10b981); /* O caractere ☰ brilha no hover */
+  transform: scale(1.05);
+}
+
+/* Ocultar quando o painel de usabilidade está aberto */
+.btn-usabilidade.btn-usabilidade-aberto {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.8);
+}
+
+.hamburguer-icon {
+  width: 24px;
+  height: 16px;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Desenho das 3 barras horizontais */
+.hamburger-icon span {
+  display: block !important;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-text); /* Usa a cor do seu texto atual */
+  border-radius: 2px;
+  transition: all 0.2s ease; /* Para futuras animações se você quiser abrir/fechar */
+}
+
+.btn-usabilidade:hover .hamburguer-icon span {
+  background-color: var(--color-primary);
+}
+
+/* Botão 🖨️ imprimir */
+.btn-imprimir {
+  position: fixed;
+  bottom: 28px;
+  left: 28px;
+  background-color: var(--color-surface-card);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border-card);
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  font-size: 0.78rem;
+  font-family: var(--fonte-corpo);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: auto;
+  box-shadow: var(--shadow-sm);
+  transition:
+    background-color var(--transition-base),
+    border-color var(--transition-base),
+    color var(--transition-base),
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow var(--transition-base);
+}
+
+.btn-imprimir:hover {
+  background-color: var(--color-accent-dim);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-imprimir:active {
+  transform: translateY(1px) scale(0.97);
+  transition: transform 0.1s ease;
+}
+
+
+/* ============================================================
+   17. ACESSIBILIDADE — Recursos dinâmicos
+
+   17a. OpenDyslexic — fonte para dislexia
+   ============================================================ */
+
+/* Transição suave ao trocar modos de cor (contraste, daltonismo) */
+body {
+  transition: all var(--transition-slow);
+}
+
+/* Elementos que participam da transição de cor — apenas propriedades de cor,
+   para não conflitar com as transições de transform já definidas por componente */
+.layout-wrapper,
+.aside-esquerdo,
+.conteudo-principal,
+.painel-direito {
+  transition: var(--transition-slow);
+}
+
+/* Cards e blocos — transição de cor adicional às já existentes */
+.bloco-lateral,
+.card-experiencia,
+.card-formacao,
+.card-curso {
+  transition:
+    border-color var(--transition-base),
+    box-shadow var(--transition-base),
+    transform var(--transition-base),
+    background-color var(--transition-slow),
+    color var(--transition-slow);
+}
+
+.tag {
+  transition:
+    background-color var(--transition-slow),
+    color var(--transition-slow),
+    border-color var(--transition-base),
+    transform var(--transition-fast);
+}
+
+.idioma-frente,
+.idioma-verso,
+.footer,
+.btn-nav,
+.btn-opcao {
+  transition: all var(--transition-slow);
+}
+@font-face {
+  font-family: "OpenDyslexic";
+  src: url("https://cdn.jsdelivr.net/npm/opendyslexic@1.0.3/font/OpenDyslexic-Regular.shadow.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body.fonte-dislexia-ativa * {
+  font-family: "OpenDyslexic", sans-serif !important;
+}
+
+/* 17b. Guia de leitura (régua horizontal) */
+.guia-leitura {
+  display: none;
+  position: fixed;
+  left: 0;
+  width: 100%;
+  height: 24px;
+  background: rgba(56, 189, 248, 0.12);
+  border-top: 2px solid var(--color-accent);
+  border-bottom: 2px solid var(--color-accent);
+  pointer-events: none;
+  z-index: 9999;
+  transition: top 0.04s linear;
+}
+
+/* 17c. Cursor acessível — SVG amarelo inline */
+body.cursor-acessivel-ativo,
+body.cursor-acessivel-ativo * {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cpath d='M0 0l24 48 8-16 16-8z' fill='%23FFEB3B' stroke='%23000000' stroke-width='3' stroke-linejoin='round'/%3E%3C/svg%3E") 0 0, auto !important;
+}
+
+/*
+  OPÇÕES DE CURSOR (estudos futuros — manter comentado):
+
+  OPÇÃO 2 — Guias cruzadas em tela inteira
+  Cria uma mira de crosshair com linhas horizontais e verticais
+  que seguem o cursor. Implementação via JS + dois elementos
+  position:fixed com largura/altura 100vw/100vh.
+  Exemplo: .guia-cruzada-h / .guia-cruzada-v
+
+  OPÇÃO 3 — Lente de foco circular
+  Área circular que amplifica o conteúdo ao redor do cursor
+  usando clip-path circular + filter: brightness(1.4).
+  Requer canvas ou SVG animado via mousemove.
+
+  OPÇÃO 4 — Cursor invertido via mix-blend-mode
+  cursor: none + elemento div seguidor com
+  mix-blend-mode: difference sobre fundo claro/escuro.
+  Simples, elegante, sem imagem externa.
+*/
+
+/* 17d. Destacar links */
+a.link-destacado {
+  outline: 2.5px solid rgba(250, 204, 21, 0.9) !important;
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+
+/* ============================================================
+   18. ANIMAÇÕES DE ENTRADA
+   Respeitando prefers-reduced-motion para usuários sensíveis.
+   ============================================================ */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes tremerBloqueio {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-2px); }
+  40%, 80% { transform: translateX(2px); }
+}
+
+/* REGRA 1: Para o botão do seu site (JavaScript) */
+body.motion-reduzido *,
+body.motion-reduzido *,
+body.motion-reduzido *::before,
+body.motion-reduzido *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* REGRA 2: Para o sistema operacional do usuário */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================
+   18b. EFEITOS DE CLIQUE — feedback tátil visual em botões e cards
+   ============================================================ */
+
+/* Botões de navegação */
+.btn-nav:active {
+  transform: scale(0.95);
+  transition: transform 0.08s ease;
+}
+
+/* Cards de experiência, formação e cursos */
+.card-experiencia:active,
+.card-formacao:active,
+.card-curso:active {
+  transform: translateY(0) scale(0.99);
+  transition: transform 0.08s ease;
+}
+
+/* Tags de competências */
+.tag:active {
+  transform: translateY(0) scale(0.93);
+  transition: transform 0.08s ease;
+}
+
+/* Botões do painel de acessibilidade */
+.btn-opcao:active,
+.btn-sub:active,
+.botoes-grupo button:active {
+  transform: scale(0.94);
+  transition: transform 0.08s ease;
+}
+
+/* Botão fechar painel */
+.btn-fechar:active {
+  transform: scale(0.88);
+  transition: transform 0.08s ease;
+}
+
+/* Botão de acessibilidade flutuante */
+.btn-acessibilidade:active {
+  transform: scale(0.92);
+  transition: transform 0.08s ease;
+}
+
+/* Botão de feedback */
+.btn-feedback:active,
+.btn-feedback-footer:active {
+  transform: translateY(0) scale(0.96);
+  transition: transform 0.08s ease;
+}
+
+/* Links sociais no footer */
+.social-links a:active {
+  transform: translateY(-2px) scale(1.0);
+  transition: transform 0.08s ease;
+}
+
+/* Blocos laterais (status, timeline, citação) */
+.bloco-lateral:active {
+  transform: translateY(0) scale(0.99);
+  transition: transform 0.08s ease;
+}
+
+/* Botões de idioma no nav */
+.lang-btn:active {
+  transform: scale(0.9);
+  transition: transform 0.08s ease;
+}
+
+/* ============================================================
+   19. ALTO CONTRASTE — Bloco isolado
+   Segue exatamente a mesma ordem estrutural do CSS base.
+   Usa !important para sobrescrever especificidade existente.
+   Padrão: fundo preto, texto branco, destaques amarelos.
+   ============================================================ */
+
+/* — BODY E LAYOUT — */
+body.alto-contraste {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+body.alto-contraste .layout-wrapper {
+  background-color: #000000 !important;
+}
+
+/* — MENU DE NAVEGAÇÃO — */
+body.alto-contraste .aside-esquerdo {
+  background-color: #000000 !important;
+  border-right-color: #ffffff !important;
+}
+
+body.alto-contraste .btn-nav {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border-color: #555555 !important;
+}
+
+body.alto-contraste .btn-nav:hover,
+body.alto-contraste .btn-nav.nav-ativo {
+  color: #ffff00 !important;
+  border-color: #ffff00 !important;
+  background-color: #111111 !important;
+}
+
+body.alto-contraste .seletor-idioma {
+  border-top-color: #555555 !important;
+}
+
+body.alto-contraste .lang-btn {
+  color: #aaaaaa !important;
+}
+
+body.alto-contraste .lang-btn.lang-ativo,
+body.alto-contraste .lang-btn:hover {
+  color: #ffff00 !important;
+}
+
+/* — PAINEL DE ACESSIBILIDADE — */
+body.alto-contraste .painel-acessibilidade {
+  background-color: #111111 !important;
+  border-left-color: #ffffff !important;
+}
+
+body.alto-contraste .painel-header h3 {
+  color: #ffffff !important;
+}
+
+body.alto-contraste .btn-fechar {
+  color: #cccccc !important;
+}
+
+body.alto-contraste .btn-opcao,
+body.alto-contraste .botoes-grupo button {
+  background-color: #222222 !important;
+  color: #ffffff !important;
+  border-color: #555555 !important;
+}
+
+body.alto-contraste .btn-opcao:hover,
+body.alto-contraste .botoes-grupo button:hover {
+  background-color: #333333 !important;
+  border-color: #ffff00 !important;
+  color: #ffff00 !important;
+}
+
+body.alto-contraste .btn-opcao[aria-pressed="true"],
+body.alto-contraste .btn-opcao.opcao-ativa {
+  background-color: #003300 !important;
+  border-color: #00ff00 !important;
+  color: #00ff00 !important;
+}
+
+body.alto-contraste button.btn-reset {
+  background-color: #222 !important;
+  border-color: #555 !important;
+  color: #ffffff !important;
+  outline: 2px solid transparent;
+  outline-offset: 0px;
+  transition: all var(--transition-base);
+}
+
+body.alto-contraste button.btn-reset:hover {
+  background-color: #111 !important;
+ /* border: 1.5px dashed !important; */
+  border-color: #ff0 !important;
+  color: #ff0 !important;
+  outline: 1px solid #ff0;
+  /* outline-offset: 1px; */
+}
+
+body.alto-contraste .divisor-painel {
+  border-top-color: #444444 !important;
+}
+
+body.alto-contraste .submenu-daltonismo {
+  background-color: #1a1a1a !important;
+  border-color: #444444 !important;
+}
+
+body.alto-contraste .submenu-titulo {
+  color: #888888 !important;
+}
+
+body.alto-contraste .btn-sub {
+  background-color: #222222 !important;
+  color: #ffffff !important;
+  border-color: #555555 !important;
+}
+
+body.alto-contraste .btn-sub:hover {
+  background-color: #333333 !important;
+  border-color: #ffff00 !important;
+  color: #ffff00 !important;
+}
+
+body.alto-contraste .btn-sub.btn-sub-ativo {
+  background-color: #003366 !important;
+  color: #66aaff !important;
+  border-color: #4488cc !important;
+}
+
+body.alto-contraste .btn-sub-desativar {
+  background-color: #3b0000 !important;
+  color: #ff8080 !important;
+  border-color: #880000 !important;
+}
+
+body.alto-contraste .painel-rodape p {
+  color: #aaaaaa !important;
+}
+
+body.alto-contraste .btn-feedback {
+  background-color: #000000 !important;
+  border-color: #ffffff !important;
+  color: #ffff00 !important;
+}
+
+body.alto-contraste .btn-feedback:hover {
+  background-color: #111111 !important;
+  color: #ffffff !important;
+}
+
+/* — HEADER — */
+body.alto-contraste .secao-header {
+  border-bottom-color: #555555 !important;
+}
+
+body.alto-contraste .secao-header h1 {
+  color: #ffffff !important;
+}
+
+body.alto-contraste .subtitulo {
+  color: #ffaa00 !important;
+}
+
+body.alto-contraste .contato-item {
+  color: #cccccc !important;
+}
+
+body.alto-contraste .contato-item a {
+  color: #ffff00 !important;
+}
+
+body.alto-contraste .contato-item a:hover {
+  color: #ffffff !important;
+}
+
+/* — SEÇÕES GERAIS — */
+body.alto-contraste section h2 {
+  color: #ffffff !important;
+  border-left-color: #ffff00 !important;
+}
+
+/* — EXPERIÊNCIA E FORMAÇÃO — */
+body.alto-contraste .card-experiencia,
+body.alto-contraste .card-formacao,
+body.alto-contraste .card-curso {
+  background-color: #1a1a1a !important;
+  border-color: #ffffff !important;
+}
+
+body.alto-contraste .card-formacao-destaque {
+  background-color: #001a00 !important;
+  border-color: #00ff00 !important;
+}
+
+body.alto-contraste .card-cabecalho,
+body.alto-contraste .card-cargo,
+body.alto-contraste .formacao-titulo,
+body.alto-contraste .curso-nome {
+  color: #ffffff !important;
+}
+
+body.alto-contraste .card-empresa,
+body.alto-contraste .formacao-instituicao,
+body.alto-contraste .card-experiencia p,
+body.alto-contraste .curso-info {
+  color: #dddddd !important;
+}
+
+body.alto-contraste .card-periodo {
+  background-color: #333333 !important;
+  color: #ffffff !important;
+  border-color: #888888 !important;
+}
+
+body.alto-contraste .formacao-periodo-ativo {
+  color: #00ff00 !important;
+}
+
+/* — COMPETÊNCIAS — */
+body.alto-contraste .tag {
+  background-color: #1a1a1a !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+body.alto-contraste .tag:hover {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+/* — IDIOMAS — */
+body.alto-contraste .idioma-frente,
+body.alto-contraste .idioma-verso {
+  background-color: #1a1a1a !important;
+  border-color: #ffffff !important;
+}
+
+body.alto-contraste .idioma-nome,
+body.alto-contraste .idioma-descricao {
+  color: #ffffff !important;
+}
+
+body.alto-contraste .idioma-nivel {
+  color: #00ff00 !important;
+}
+
+/* — FOOTER — */
+body.alto-contraste .footer {
+  background-color: #000000 !important;
+  border-top-color: #444444 !important;
+}
+
+body.alto-contraste .social-links a {
+  color: #ffff00 !important;
+}
+
+body.alto-contraste .social-links a:hover {
+  color: #ffffff !important;
+}
+
+body.alto-contraste .btn-feedback-footer {
+  background-color: #000000 !important;
+  border-color: #ffffff !important;
+  color: #ffff00 !important;
+  animation: none !important;
+}
+
+body.alto-contraste .btn-feedback-footer:hover {
+  background-color: #111111 !important;
+  color: #ffffff !important;
+}
+
+body.alto-contraste .creditos {
+  color: #aaaaaa !important;
+}
+
+/* — PAINEL DIREITO — */
+body.alto-contraste .bloco-lateral {
+  background-color: #1a1a1a !important;
+  border-color: #ffffff !important;
+}
+
+body.alto-contraste .status-texto strong {
+  color: #4ade80 !important;
+}
+
+body.alto-contraste .status-texto span {
+  color: #ffffff !important;
+}
+
+body.alto-contraste .status-texto small {
+  color: #aaaaaa !important;
+}
+
+body.alto-contraste .bloco-titulo {
+  color: #ffffff !important;
+}
+
+body.alto-contraste .timeline-pessoal::before {
+  background: #444444 !important;
+}
+
+body.alto-contraste .timeline-item::before {
+  background: #555555 !important;
+  border-color: #000000 !important;
+}
+
+body.alto-contraste .timeline-item-atual::before {
+  background: var(--color-accent) !important;
+}
+
+body.alto-contraste .timeline-ano {
+  color: #ffffff !important;
+}
+
+body.alto-contraste .timeline-ano-atual {
+  color: var(--color-accent) !important;
+}
+
+body.alto-contraste .timeline-desc {
+  color: #cccccc !important;
+}
+
+body.alto-contraste .bloco-citacao blockquote {
+  color: #dddddd !important;
+}
+
+body.alto-contraste .bloco-citacao blockquote::before {
+  color: #ff6b6b !important;
+}
+
+body.alto-contraste .bloco-citacao cite {
+  color: #aaaaaa !important;
+}
+
+/* — BOTÕES FLUTUANTES — */
+body.alto-contraste .btn-acessibilidade {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border-color: #ffffff !important;
+}
+
+body.alto-contraste .btn-imprimir {
+  background-color: #000000 !important;
+  border-color: #ffffff !important;
+  color: #ffffff !important;
+}
+
+body.alto-contraste .btn-imprimir:hover {
+  border-color: #ffff00 !important;
+  color: #ffff00 !important;
+}
+
+body.alto-contraste .btn-reset-geral {
+  background-color: #222222 !important;
+  border-color: #ffffff !important;
+  color: #ffffff !important;
+}
+
+body.alto-contraste .btn-reset-geral:hover {
+ background-color: #1a1a1a !important;
+  border-color: #ff0 !important;
+  color: #ff0 !important;
+  box-shadow: rgb(255, 196, 0) !important;
+  outline: 1px solid !important;
+}
+
+/* — PAINEL DE USABILIDADE (alto contraste) — */
+body.alto-contraste .painel-usabilidade {
+  background-color: #111111 !important;
+  border-left-color: #ffffff !important;
+}
+
+body.alto-contraste .btn-tema {
+  background-color: #222222 !important;
+  color: #ffffff !important;
+  border-color: #555555 !important;
+}
+
+body.alto-contraste .btn-tema[aria-pressed="true"],
+body.alto-contraste .btn-tema.tema-ativo {
+  background-color: #003300 !important;
+  border-color: #00ff00 !important;
+  color: #00ff00 !important;
+}
+
+body.alto-contraste .btn-hub {
+  background-color: #222222 !important;
+  color: #ffffff !important;
+  border-color: #555555 !important;
+}
+
+body.alto-contraste .badge-em-breve {
+  background-color: #003366 !important;
+  color: #66aaff !important;
+  border-color: #4488cc !important;
+}
+
+body.alto-contraste .btn-usabilidade {
+  background-color: none !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+/* — GUIA DE LEITURA — */
+body.alto-contraste .guia-leitura {
+  background: rgba(255, 255, 255, 0.151) !important;
+  border-color: rgb(170, 173, 0) !important;
+}
+
+
+/* ============================================================
+   20. MEDIA QUERIES — Responsividade (360px → 3840px)
+
+   BREAKPOINTS:
+   1100px  — oculta painel direito, 2 colunas
+   768px   — transforma menu em bottom navigation
+   480px   — celular pequeno: ajustes finos
+   2560px  — 4K / ultra-wide: aumenta container
+   ============================================================ */
+
+/* 20a. Print — impressão / salvar PDF */
+@media print {
+  aside,
+  .painel-direito,
+  .btn-imprimir,
+  .btn-acessibilidade,
+  .guia-leitura,
+  .social-links,
+  .btn-feedback-footer {
+    display: none !important;
+  }
+
+  body, .layout-wrapper {
+    background: #ffffff !important;
+    color: #000000 !important;
+    display: block !important;
+  }
+
+  .conteudo-principal {
+    max-width: 100% !important;
+    padding: 20px !important;
+  }
+
+  .card-experiencia,
+  .card-formacao,
+  .card-curso {
+    break-inside: avoid;
+    background: #ffffff !important;
+    border: 1px solid #cccccc !important;
+    color: #000000 !important;
+  }
+
+  .secao-header h1,
+  section h2 {
+    color: #000000 !important;
+  }
+
+  .card-cargo,
+  .formacao-titulo,
+  .curso-nome {
+    color: #000000 !important;
+  }
+}
+
+/* 20b. Telas ≤ 1100px — layout 2 colunas (oculta painel direito) */
+@media (max-width: 1100px) {
+  .layout-wrapper {
+    grid-template-columns: var(--nav-width) 1fr;
+    grid-template-areas: "nav-esq conteudo";
+  }
+
+  .painel-direito {
+    display: none;
+  }
+}
+
+/* 20c. Telas ≤ 768px — bottom navigation (mobile) */
+@media (max-width: 768px) {
+  .layout-wrapper {
+    grid-template-columns: 1fr;
+    grid-template-areas: "conteudo";
+    padding-bottom: 72px; /* espaço para o bottom nav */
+  }
+
+  /* Menu lateral vira bottom navigation */
+  .aside-esquerdo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: auto;
+    width: 100%;
+    z-index: 1000;
+    padding: 0;
+    display:flex;
+    /* background-color: var(--color-bg-aside);
+      border-bottom: 1px solid var(--color-border-soft);
+     border-right: none; */
+    background-color: transparent;
+    border: none;
+  
+    justify-content: space-between;
+  }
+
+  .menu-nav {
+    order: 1;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    z: index: 1000;
+    background-color: var(--color-bg-aside);
+    border-bottom: 1px solid var(--color-border-soft);
+  }
+
+  .menu-nav ul {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 0;
+    padding: 8px 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .menu-nav ul::-webkit-scrollbar {
+    display: none;
+  }
+
+  .btn-nav {
+    font-size: 0.7rem;
+    padding: 6px 8px;
+    border: none;
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+    width: auto;
+  }
+
+  .btn-nav:hover,
+  .btn-nav.nav-ativo {
+    padding-left: 8px; /* remove o padding-left de hover para bottom nav */
+  }
+
+  /* Seletor de idioma se move para dentro do conteúdo em mobile */
+  .seletor-idioma {
+    display: none;
+  }
+
+  /* Conteúdo ajustado para mobile */
+  .conteudo-principal {
+    padding: 32px 20px 40px;
+  }
+
+  .secao-header h1 {
+    font-size: clamp(1.75rem, 8vw, 2.4rem);
+  }
+
+  /* Cards de formação: coluna única */
+  .grade-formacao {
+    grid-template-columns: 1fr;
+  }
+
+  .card-formacao-destaque {
+    grid-column: 1;
+  }
+
+  /* Experiência: período vai para nova linha */
+  .card-cabecalho {
+    flex-direction: column;
+  }
+
+  /* Botões flutuantes ajustados */
+  .btn-imprimir {
+    bottom: 80px; /* acima do bottom nav */
+    left: 16px;
+  }
+
+  .btn-acessibilidade {
+    position: fixed;
+    bottom: 60px;
+    right: 16px;
+    left: auto;
+    z-index: 1001
+    margin: 0;
+
+    background:color: var(--color-bg-card);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-border-soft);
+  }
+
+  .header-aside {
+    order: 2;
+    justify-content: flex-end;
+    border-bottom: none;
+  }
+
+  /* Botão de usabilidade: acima do botão de acessibilidade */
+.btn-usabilidade {
+    position: sticky;
+    top: auto; /* 80px + 48px + 10px */
+    right: 0;
+    margin-right: 20px;
+  }
+
+  .btn-imprimir {
+    position: relative;
+  }
+
+  /* 5e-i. Estrutura do painel de usabilidade */
+.painel-usabilidade {
+  top: 0;
+  right: 0;
+  left: auto;
+  border-left: 1px solid var(--color-border-card);
+  transform: translateX(100%);
+}
+.painel-usabilidade.usabilidade-aberto {
+  top: 0;
+  left: auto;
+  right: 0;
+  transform: translateX(0%);
+}
+
+  /* Lista de idiomas centralizada */
+  .lista-idiomas {
+    justify-content: center;
+  }
+}
+
+/* 20d. Telas ≤ 480px — ajustes para celulares pequenos */
+@media (max-width: 480px) {
+  .conteudo-principal {
+    padding: 24px 16px 40px;
+  }
+
+  .grade-cursos {
+    grid-template-columns: 1fr;
+  }
+
+  .contato {
+    gap: 8px 16px;
+  }
+
+  .social-links {
+    gap: 16px;
+  }
+}
+
+/* 20e. Telas ≥ 2560px — 4K / ultra-wide */
+@media (min-width: 2560px) {
+  :root {
+    --nav-width: 280px;
+    --painel-dir-width: 320px;
+    --max-content-width: 1000px;
+  }
+
+  html {
+    font-size: 18px;
+  }
+
+  .layout-wrapper {
+    max-width: 1800px;
+  }
+}
