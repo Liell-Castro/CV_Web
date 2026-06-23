@@ -1,6 +1,8 @@
+```⚠️ Projeto em desenvolvimento. Novas funcionalidades e refatorações de código sendo implementadas.```
+
 # Currículo Web — Willian Gabriel
 
-> Portfólio front-end construído do zero como projeto de aprendizado contínuo.
+> Portfólio front-end construído do zero como projeto de aprendizado contínuo.<br>
 > Da v1 ao código que você está lendo agora.
 
 ---
