@@ -120,6 +120,7 @@ function initDestaqueNavAtivo() {
   if (!sections.length) return;
 
   const observer = new IntersectionObserver(
+    
     function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
@@ -135,14 +136,20 @@ function initDestaqueNavAtivo() {
         if (btnAtivo) btnAtivo.classList.add("nav-ativo");
       });
     },
-    { threshold: 0.3, rootMargin: "-10% 0px -60% 0px" }
+    { threshold: 0.3, rootMargin: "-10% 0px -50% 0px"}
   );
 
   sections.forEach(function (section) {
     observer.observe(section);
   });
 }
-
+window.addEventListener("scroll", function() {
+    if ((window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 10) {
+      document.querySelectorAll(".btn-nav").forEach(b => b.classList.remove("nav-ativo"));
+      const btnIdiomas = document.querySelector('[data-scroll="idiomas"]');
+      if (btnIdiomas) btnIdiomas.classList.add("nav-ativo");
+    }
+  });
 
 /* ============================================================
    3. ZOOM DE TEXTO
@@ -269,20 +276,31 @@ function alternarContraste() {
   // ativa/desativa a classe correta no body
   var ativoOficial = document.body.classList.toggle("alto-contraste");
   _atualizarAriaPressed("btn-contraste", ativoOficial);
-    document.body.classList.toggle("alto-contraste");
-    _atualizarAriaPressed("btn-contraste", false);
-  var ativoOficial = document.body.classList.toggle("alto-contraste");
-  _atualizarAriaPressed("btn-contraste", ativoOficial);
-}
+
 
   if (ativoOficial) {
     // Desativa daltonismo ao entrar em alto contraste
     ativarDaltonismo(null);
-  } else {
-    document.querySelectorAll(".opcao-ativa").forEach(function(btn) {
-      btn.setAttribute("aria-pressed", "true");
-  });
+    
+   // Fecha visualmente o submenu caso ele esteja aberto
+    var submenu = document.getElementById("submenu-daltonismo");
+    if (submenu) {
+      submenu.classList.remove("submenu-visivel");
+    }
+    
+    var btnDaltonismo = document.getElementById("btn-daltonismo");
+    if (btnDaltonismo) {
+      btnDaltonismo.classList.remove("opcao-ativa", "btn-sub-ativo");
+      btnDaltonismo.setAttribute("aria-pressed", "false");
+      btnDaltonismo.setAttribute("aria-expanded", "false");
+    }
+    
+    document.querySelectorAll(".grupo-daltonismo .btn-sub, .grupo-daltonismo .btn-sub-opcao, .grupo-daltonismo .opcao-ativa, .grupo-daltonismo .btn-sub-ativo").forEach(function (btn) {
+      btn.classList.remove("btn-sub-ativo", "opcao-ativa");
+      btn.setAttribute("aria-pressed", "false");
+    });
   }
+}
 
 /* ============================================================
    7. MODO DALTONISMO — Filtros SVG por tipo
@@ -317,11 +335,11 @@ function ativarDaltonismo(tipo) {
     "modo-acromatopsia"
   );
 
-  // Remove as classes ativas antigas ou novas de todas as sub-opções de forma segura
-  document.querySelectorAll(".btn-sub, .btn-sub-opcao, .opcao-ativa, .btn-sub-ativo").forEach(function (btn) {
-    btn.classList.remove("btn-sub-ativo", "opcao-ativa");
-    btn.setAttribute("aria-pressed", "false");
-  });
+// CORREÇÃO: Restringe a limpeza apenas para o bloco de daltonismo
+document.querySelectorAll(".grupo-daltonismo .btn-sub, .grupo-daltonismo .btn-sub-opcao, .grupo-daltonismo .opcao-ativa, .grupo-daltonismo .btn-sub-ativo").forEach(function (btn) {
+  btn.classList.remove("btn-sub-ativo", "opcao-ativa");
+  btn.setAttribute("aria-pressed", "false");
+});
 
   // Se o tipo for null ou "normal", desativa os filtros SVG
   if (tipo === null || tipo === "normal") {

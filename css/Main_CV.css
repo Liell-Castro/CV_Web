@@ -376,6 +376,36 @@ body {
   align-items: start;
 }
 
+.subtitulo {
+  display: inline-block;
+  position: relative;
+  transition: color 0.4s ease;
+  cursor: text;
+}
+
+/* O efeito do gradiente surgindo */
+.subtitulo::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px; /* Linha estilizada que cresce embaixo */
+  bottom: -2px;
+  left: 0;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-hover)); /* Mude para as cores do seu tema */
+  transform-origin: bottom right;
+  transition: transform 0.4s ease-out;
+}
+
+.subtitulo:hover {
+  color: var(--color-accent-hover); /* O nome muda de cor suavemente */
+}
+
+.subtitulo:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
 
 /* ============================================================
    4. ASIDE ESQUERDO — Menu de navegação
@@ -493,10 +523,8 @@ body {
   transform: translateX(100%);
   transition: all var(--transition-slow);
   z-index: 9999;
-
   /* Permite rolagem interna sem scrollbar visível */
   overflow: hidden;
-  isolation: isolate;
   will-change: transform;
 }
 
@@ -849,8 +877,6 @@ body {
     transform var(--transition-slow),
     background-color var(--transition-slow);
   z-index: 8500;
-  isolation: isolate;
-
   overflow: hidden;
   will-change: transform;
 }
@@ -953,7 +979,7 @@ body:has(.painel-usabilidade.usabilidade-aberto) .btn-imprimir {
    6. HEADER — Apresentação pessoal
    ============================================================ */
 .secao-header {
-  padding-bottom: 48px;
+  padding-bottom: 32px;
   margin-bottom: 52px;
   border-bottom: 1px solid var(--color-border-soft);
   position: relative;
@@ -986,7 +1012,7 @@ body:has(.painel-usabilidade.usabilidade-aberto) .btn-imprimir {
   color: var(--color-accent);
   text-transform: uppercase;
   letter-spacing: 3px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 /* Dados de contato */
@@ -994,7 +1020,9 @@ body:has(.painel-usabilidade.usabilidade-aberto) .btn-imprimir {
   display: flex;
   flex-wrap: wrap;
   gap: 10px 24px;
-  margin-top: 16px;
+  margin-top: 10px;
+  justify-content: left;
+  margin-left: 4px;
 }
 
 .contato-item {
@@ -2088,7 +2116,10 @@ body.motion-reduzido *::after {
 /* ============================================================
    18b. EFEITOS DE CLIQUE — feedback tátil visual em botões e cards
    ============================================================ */
-
+.btn-usabilidade:active {
+  transform: scale(0.95);
+  transition: tranform var(--transition-base);
+}
 /* Botões de navegação */
 .btn-nav:active {
   transform: scale(0.95);
@@ -2336,7 +2367,7 @@ body.alto-contraste .contato-item a:hover {
 /* — SEÇÕES GERAIS — */
 body.alto-contraste section h2 {
   color: #ffffff !important;
-  border-left-color: #ffff00 !important;
+  border-left-color: #00ff00 !important;
 }
 
 /* — EXPERIÊNCIA E FORMAÇÃO — */
@@ -2466,7 +2497,7 @@ body.alto-contraste .timeline-item::before {
 }
 
 body.alto-contraste .timeline-item-atual::before {
-  background: var(--color-accent) !important;
+  background: #00ff00 !important;
 }
 
 body.alto-contraste .timeline-ano {
@@ -2474,7 +2505,7 @@ body.alto-contraste .timeline-ano {
 }
 
 body.alto-contraste .timeline-ano-atual {
-  color: var(--color-accent) !important;
+  color: #00ff00 !important;
 }
 
 body.alto-contraste .timeline-desc {
@@ -2486,7 +2517,7 @@ body.alto-contraste .bloco-citacao blockquote {
 }
 
 body.alto-contraste .bloco-citacao blockquote::before {
-  color: #ff6b6b !important;
+  color: #00ff00 !important;
 }
 
 body.alto-contraste .bloco-citacao cite {
@@ -2780,6 +2811,17 @@ body.alto-contraste .guia-leitura {
   left: auto;
   right: 0;
   transform: translateX(0%);
+}
+
+/* Correção de empilhamento dos painéis laterais quando ativos */
+.painel-acessibilidade.acessibilidade-aberto,
+.painel-usabilidade.usabilidade-aberto {
+  z-index: 9999 !important;
+}
+
+/* Garante que o botão flutuante também se mantenha acima */
+.btn-acessibilidade, .btn-usabilidade {
+  z-index: 10000 !important;
 }
 
   /* Lista de idiomas centralizada */
