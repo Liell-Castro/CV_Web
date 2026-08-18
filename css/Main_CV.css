@@ -1602,7 +1602,11 @@ small:hover {
   transform: scale(1.05);
 }
 
-/* Ponto verde pulsante */
+/* ===============================
+SESSÃO STATUS DISPONIBILIDADE
+=============================== */
+
+/* DISPONÍVEL
 .status-indicador {
   width: 9px;
   height: 9px;
@@ -1612,7 +1616,33 @@ small:hover {
   margin-top: 7px;
   animation: piscar 2.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
+  */
 
+/* ABERTO A OPORTUNIDADES */
+.status-indicador {
+  width: 9px;
+  height: 9px;
+  min-width: 9px;
+  background-color: var(--color-state-warning);
+  border-radius: 50%;
+  margin-top: 7px;
+  animation: piscar 2.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* INDISPONÍVEL
+.status-indicador {
+  width: 9px;
+  height: 9px;
+  min-width: 9px;
+  background-color: var(--color-state-error);
+  border-radius: 50%;
+  margin-top: 7px;
+  animation: piscar 2.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+  */
+
+  /* DISPONÍVEL */
+  /*
 @keyframes piscar {
   0%, 100% {
     opacity: 1;
@@ -1635,6 +1665,34 @@ small:hover {
 .status-texto strong {
   font-size: 0.875rem;
   color: var(--color-state-success);
+  font-weight: 600;
+}
+*/
+
+/* ABERTO A OPORTUNIDADES */
+/**/
+@keyframes piscar {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+    box-shadow: 0 0 6px 3px rgba(216, 213, 12, 0.45)
+  }
+}
+
+.status-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.status-texto strong {
+  font-size: 0.875rem;
+  color: var(--color-state-warning);
   font-weight: 600;
 }
 
